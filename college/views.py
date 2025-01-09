@@ -305,7 +305,19 @@ class vacancy_view(View):
         view = collegemodel.objects.all()
         return render(request,"student/vacancy_view.html",{'data':view})
 
-# class vacancy(View):
+class vacancy(View):
+    def get(self,request):
+        return render(request,"college/course_vacancy.html")
+    def post(self,request):
+        vacancy_add=vacancy_form(request.POST)
+        if vacancy_add.is_valid():
+            vacancy_add.save()
+            return HttpResponse('ADD')
+        return render(request,"college/course_vacancy.html")
+
+class view_coure(View):
+    def get(self,request):
+        return render(request,"college/cours_view.html")
 
 
 

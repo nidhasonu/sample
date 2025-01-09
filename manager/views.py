@@ -27,7 +27,7 @@ class riply(View):
 
 class course_college(View):
     def get(self,request):
-        view_college=homeview.objects.all()
+        view_college=collegemodel.objects.all()
         return render(request,"manager/cours_college.html",{'data': view_college})
 
 class view_feedback(View):

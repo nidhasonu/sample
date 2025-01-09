@@ -15,16 +15,16 @@
         {% for details in data %}
         <div class="col-12 col-md-6 col-lg-4 mb-4">
             <div class="card h-100">
-                {% if details.home_image%}
-                <img src="{{ details.home_image.url }}" class="card-img-top" alt="College Image" style="object-fit: cover; width: 100%; height: 200px;">
+                {% if details.college_image%}
+                <img src="{{ details.college_image.url }}" class="card-img-top" alt="College Image" style="object-fit: cover; width: 100%; height: 200px;">
                 {% else %}
                 <div class="d-flex align-items-center justify-content-center" style="height: 200px; background-color: #f8f9fa;">
                     <p class="text-center text-muted mb-0">No image available</p>
                 </div>
                 {% endif %}
                 <div class="card-body">
-                    <h5 class="card-title">{{ details.titel }}</h5>
-                    <p class="card-text">{{ details.Location|default:"Location not specified" }}</p>
+                    <h5 class="card-title">{{ details.college_name }}</h5>
+                    <p class="card-text">{{ details.City|default:"Location not specified" }}</p>
                     <a href="#" class="btn btn-primary">View</a>
                 </div>
             </div>

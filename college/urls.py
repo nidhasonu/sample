@@ -33,5 +33,7 @@ urlpatterns=[
     path('home_edit/<int:id>',home_edit.as_view(),name="home_edit"),
     path('home_delt/<int:id>',home_delt.as_view(),name="home_delt"),
     path('collegehome/',college_home.as_view(),name="collegehome"),
+    path('vacancy_course/',view_coure.as_view(),name="vacancy_course"),
+    path('add_vacancy/',vacancy.as_view(),name="add_vacancy")
 
 ]
