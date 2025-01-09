@@ -1,0 +1,70 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admission Details</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f4f4f9;
+        }
+
+        table {
+            width: 80%;
+            margin: 20px auto;
+            border-collapse: collapse;
+            background-color: #ffffff;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        th, td {
+            padding: 12px 20px;
+            text-align: left;
+            border: 1px solid #ddd;
+        }
+
+        th {
+            background-color: cadetblue;
+            color: white;
+            font-weight: bold;
+        }
+
+        td {
+            color: #333;
+        }
+
+        label {
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    {% for addmission in data %}
+    <table>
+        <tr>
+            <th><label>College Name</label></th>
+            <td>{{ addmission.college_name }}</td>
+        </tr>
+        <tr>
+            <th><label>Eligibility</label></th>
+            <td>{{ addmission.Eligibility }}</td>
+        </tr>
+        <tr>
+            <th><label>Subject</label></th>
+            <td>{{ addmission.Subject }}</td>
+        </tr>
+        <tr>
+            <th><label>Admission Start Date</label></th>
+            <td>{{ addmission.Addmission_start_date }}</td>
+        </tr>
+        <tr>
+            <th><label>Admission End Date</label></th>
+            <td>{{ addmission.Addmission_end_date }}</td>
+        </tr>
+    </table>
+    {% endfor %}
+</body>
+</html>

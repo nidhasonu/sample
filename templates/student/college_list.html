@@ -1,0 +1,58 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Colleges</title>
+    <style>
+.college-cards {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.college-card {
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    padding: 10px;
+    width: 300px;
+    text-align: center;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.college-card img {
+    max-width: 100%;
+    border-radius: 10px;
+}
+
+.view-button {
+    display: inline-block;
+    padding: 5px 10px;
+    background-color: #007bff;
+    color: #fff;
+    border-radius: 5px;
+    text-decoration: none;
+    margin-top: 10px;
+}
+
+    </style>
+</head>
+<body>
+    <h1>Colleges</h1>
+    <div class="college-cards">
+         {% for details in data %}
+            <div class="college-card">
+                 {% if details.home_image %}
+                    <img src="{{ details.home_image.url }}" alt="{{ details.name }}">
+                 {% else %}
+                 <div class="d-flex align-items-center justify-content-center" style="height: 200px; background-color: #f8f9fa;">
+                    <p class="text-center text-muted mb-0">No image available</p>
+                </div>
+                 {% endif %}
+               <h5 >{{ details.titel }}</h5>
+                <p>{{ details.Location|default:"Location not specified" }}</p>
+                <a href="{{ colleges_details.id }} id=details.id %}" class="view-button">View Details</a>
+            </div>
+        {% endfor %}
+    </div>
+</body>
+</html>

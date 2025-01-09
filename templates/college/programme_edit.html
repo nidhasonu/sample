@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<table border="1px">
+    <form class="edit" method="POST">
+        {% csrf_token %}
+
+        <tr>
+            <th><label for="id_Titel">Titel</label></th>
+             <td><input type="text" id="id_Titel" name="Titel" value="{{ programme.Titel}}"></td>
+    </tr>
+        <tr>
+            <th><lable for="id_Venue">Venue</lable></th>
+            <td><input type="text" id="id_Venue" name="Venue" value="{{ programme.Venue }}"></td>
+        </tr>
+        <tr>
+            <th><label for="id_Start_date">Start_date</label> </th>
+        <td>
+                <input type="datetime-local" id="id_Start_date" name="Start_date" value="{{ programme.Start_date|date:'Y-m-d\\TH:i' }}">
+            </td>
+        </tr>
+        <tr>
+            <th><lable for="id_End_date">End_date</lable></th>
+       <td><input type="datetime-local" id="id_End_date" name="End_date" value="{{ programme.End_date|date:'Y-m-d\\TH:i' }}">
+        </tr>
+        <tr>
+            <td><button type="submit">save</button></td>
+        </tr>
+    </form>
+</table>
+</body>
+</html>

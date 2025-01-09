@@ -1,0 +1,96 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Student Registration</title>
+   <style>
+       body{
+    background-image:url("{% static 'images/cambridge-college.jpg' %}");
+    background-size: cover ;
+    background-repeat: no-repeat;
+
+}
+.register_form{
+    height: 700px;
+    width: 350px;
+    background-color: rgb(250, 229, 229,0.3);
+    padding-left: 50px;
+    margin-left: 350px;
+    padding-top: 50px;
+    margin-top: 20px;
+
+}
+.input{
+    width: 300px;
+    height: 30px;
+    padding: 8px;
+    font-size: 15px;
+}
+#btn{
+border-radius: 10px;
+background-image: linear-gradient(red, yellow);
+width: 200px;
+padding:12px;
+}
+
+       h2{
+       text-align:center;
+       font-size:30px;
+       }
+   </style>
+</head>
+<body>
+    <h2>Student Registration</h2>
+    <form method="post">
+        {% csrf_token %}
+        <div class="register_form">
+            <!-- User Credentials -->
+            <input type="text" name="username" placeholder="Username" class="input" required><br>
+
+            <input type="password" name="password" placeholder="Password" class="input" required><br>
+
+            <!-- Student Details -->
+            <input type="text" name="Name" placeholder="Full Name" class="input" required><br>
+
+            <input type="number" name="Age" placeholder="Age" class="input" required><br>
+
+            <input type="date" name="Date_of_birth" placeholder="Date of Birth" class="input" required><br>
+
+            <input type="email" name="Email" placeholder="Email" class="input" required><br>
+
+            <input type="text" name="Father_name" placeholder="Father's Name" class="input" required><br>
+
+            <input type="text" name="Mother_name" placeholder="Mother's Name" class="input" required><br><br>
+
+            <label>Gender:</label>
+            <label for="male">Male</label>
+            <input id="male" name="Gender" type="radio" value="MALE" required>
+            <label for="female">Female</label>
+            <input id="female" name="Gender" type="radio" value="FEMALE">
+            <label for="other">Other</label>
+            <input id="other" name="Gender" type="radio" value="OTHER"><br><br>
+
+            <input type="text" name="City" placeholder="City" class="input" required><br>
+
+            <input type="number" name="Ph_num" placeholder="Phone Number" class="input" required><br>
+
+            <input type="number" name="Addar_num" placeholder="Aadhar Number" class="input" required><br>
+
+            <input type="text" name="Qualification" placeholder="Qualification" class="input" required><br><br>
+
+
+             <label for="">university</label>
+    <select name="university" id="id_district">
+        <option value="select"></option>
+        <option value="center">CENTER</option>
+        <option value="calicut">CALICUT</option>
+        <option value="cochin">COCHIN</option>
+        <option value="national">NATIONAL</option>
+    </select><br><br>
+
+            <input id="btn" type="submit" value="Submit">
+        </div>
+    </form>
+</body>
+</html>

@@ -1,0 +1,106 @@
+<!-- {% load static %} -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+  <style>
+            body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            
+        }
+
+        h1 {
+            text-align: center;
+            color: green;
+           margin-bottom: 60px;
+
+        }
+
+        form {
+            background-color: #fff;
+            padding: 60px 40px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            width: 100%;
+            max-width: 400px;
+            box-sizing: border-box;
+            margin-right:90px;
+            height: 150%;
+            margin-top: 60px;
+        }
+
+        form .college_details {
+            display: flex;
+            flex-direction: column;
+        }
+
+        form .college_details input[type="text"],
+        form .college_details input[type="password"],
+        form .college_details input[type="email"],
+        form .college_details input[type="number"],
+        form .college_details input[type="file"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+
+        form .college_details input[type="file"] {
+            border: none;
+        }
+
+        form .college_details .btn {
+            background-color: #4caf50;
+            color: white;
+            padding: 10px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s ease;
+        }
+
+        form .college_details .btn:hover {
+            background-color: #45a049;
+        }
+
+        form .college_details input::placeholder {
+            color: #aaa;
+        }
+
+        form .college_details input:focus {
+            outline: none;
+            border-color: #4caf50;
+            box-shadow: 0 0 5px rgba(76, 175, 80, 0.5);
+        }
+
+  </style>
+</head>
+<body>
+   
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <h1>REGISTRATION</h1>
+        <div class="college_details">
+            <input type="file" name="college_image" id="image"><br>
+            <input type="text" name="username" placeholder="Username"><br>
+            <input type="password" name="password" placeholder="Password"><br>
+            <input type="number" name="College_code" placeholder="College Code"><br>
+            <input type="text" name="college_name" placeholder="College Name"><br>
+            <input type="email" name="email" placeholder="Email"><br>
+            <input type="text" name="Address" placeholder="Address"><br>
+            <input type="text" name="City" placeholder="City"><br>
+            <input class="btn" type="submit" value="Submit">
+        </div>
+    </form>
+</body>
+</html>

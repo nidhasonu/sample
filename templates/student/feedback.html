@@ -1,0 +1,128 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+
+body {
+    font-family: 'Arial', sans-serif;
+    background: linear-gradient(120deg, #84fab0, #8fd3f4);
+    margin: 0;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+}
+
+
+.card-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+
+
+.card {
+    background-color:linear-gradient(120deg, #010b0c, #1a08b9);
+    padding: 30px 40px;
+    border-radius: 12px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    width: 100%;
+    max-width: 400px;
+}
+
+
+.form-title {
+    font-size: 24px;
+    text-align: center;
+    color: #333;
+    margin-bottom: 20px;
+    font-weight: bold;
+}
+
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+
+label {
+    display: block;
+    font-size: 14px;
+    color: #555;
+    margin-bottom: 5px;
+}
+
+
+input[type="text"],
+textarea {
+    width: 100%;
+    padding: 10px 12px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 14px;
+    color: #333;
+    transition: border-color 0.3s;
+}
+
+input[type="text"]:focus,
+textarea:focus {
+    border-color: #84fab0;
+    outline: none;
+}
+
+
+textarea {
+    resize: none;
+}
+
+
+.btn-submit {
+    width: 100%;
+    padding: 10px 15px;
+    background-color: whitesmoke;
+    color: black;
+    font-size: 16px;
+    font-weight: bold;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+.btn-submit:hover {
+    background-color: #45a049;
+    transform: scale(1.03);
+}
+
+    </style>
+</head>
+<body>
+   
+    <div class="card-container">
+        <div class="card">
+            <h2 class="form-title">Submit Details</h2>
+            <form method="post" class="modern-form">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label for="titel">Title:</label>
+                    <input type="text" name="titel" id="titel" placeholder="Enter the title" required>
+                </div>
+                <div class="form-group">
+                    <label for="desciption">Message:</label>
+                    <textarea name="desciption" id="desciption" rows="4" placeholder="Enter your message" required></textarea>
+                </div>
+                <button type="submit" class="btn-submit">Submit</button>
+            </form>
+        </div>
+    </div>
+</body>
+</html>
+
+
+</body>
+</html>

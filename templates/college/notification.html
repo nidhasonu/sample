@@ -1,0 +1,122 @@
+ {% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exam Notification</title>
+    <style>
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f5f5f5;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+    }
+
+    h2 {
+        text-align: center;
+        color: #333;
+        margin-bottom: 20px;
+    }
+
+    .form {
+        background-color: gray;
+        padding: 20px 30px;
+        border-radius: 8px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        width: 100%;
+        color: white;
+        max-width: 400px;
+        box-sizing: border-box;
+    }
+
+    form table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+    form table th,
+    form table td {
+        padding: 10px;
+        text-align: left;
+        vertical-align: middle;
+    }
+
+    form table th {
+        width: 30%;
+        font-weight: bold;
+        color: #555;
+    }
+
+    form table td input[type="text"],
+    form table td input[type="datetime-local"] {
+        width: 100%;
+        padding: 8px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        font-size: 14px;
+    }
+
+    form table td input:focus {
+        outline: none;
+        border-color: #4caf50;
+        box-shadow: 0 0 5px rgba(76, 175, 80, 0.5);
+    }
+
+    form table td input[type="submit"] {
+        background-color: #4caf50;
+        color: #fff;
+        padding: 10px 15px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 16px;
+        text-align: center;
+        width: 100%;
+        transition: background-color 0.3s ease;
+    }
+
+    form table td input[type="submit"]:hover {
+        background-color: #45a049;
+    }
+
+    .table-row .btn {
+        text-align: center;
+    }
+
+    form table td {
+        text-align: center;
+    }
+
+    </style>
+</head>
+<body>
+    <h2>Submit a New Notification</h2>
+    <div class="form">
+        <form method="post">
+             {% csrf_token %}
+            <table>
+                <tr>
+                    <th><label for="id_subject">Subject:</label></th>
+                    <td><input type="text" name="subject" id="id_subject"></td>
+                </tr>
+                <tr>
+                    <th><label for="id_notification_content">Notification Content:</label></th>
+                    <td><input type="text" name="notification_content" id="id_notification_content"></td>
+                </tr>
+                <tr>
+                    <th><label for="id_exam_date">Exam Date:</label></th>
+                    <td><input type="datetime-local" name="exam_date" id="id_exam_date"></td>
+                </tr>
+                <tr class="table-row">
+                    <td colspan="2" class="btn"><input type="submit" value="Submit"></td>
+                </tr>
+            </table>
+        </form>
+    </div>
+</body>
+</html>

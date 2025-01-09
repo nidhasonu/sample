@@ -1,0 +1,128 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f5f5f5;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    color: #333;
+}
+
+
+form {
+    background-color: #fff;
+    max-width: 500px;
+    width: 100%;
+    padding: 20px 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    box-sizing: border-box;
+}
+
+
+form h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 24px;
+    color: #333;
+}
+
+
+form label {
+    display: block;
+    font-weight: bold;
+    margin: 10px 0 5px;
+}
+
+form input[type="file"] {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 15px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-sizing: border-box;
+    background-color: #f9f9f9;
+}
+
+form input[type="file"]:focus {
+    border-color: #4CAF50;
+    outline: none;
+    box-shadow: 0 0 4px rgba(76, 175, 80, 0.5);
+}
+
+
+form input[type="submit"] {
+    width: 100%;
+    padding: 10px 15px;
+    font-size: 16px;
+    font-weight: bold;
+    text-transform: uppercase;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+form input[type="submit"]:hover {
+    background-color: #45a049;
+}
+
+
+@media (max-width: 600px) {
+    form {
+        padding: 20px;
+    }
+
+    form h2 {
+        font-size: 20px;
+    }
+}
+
+    </style>
+</head>
+<body>
+<table>
+    <form class="edit" method="POST">
+        {% csrf_token %}
+
+        <tr>
+            <th><label for="id_college_name">college_name</label></th>
+             <td><input type="text" id="id_college_name" name="college_name" value="{{ edited.college_name}}"></td>
+        </tr>
+        <tr>
+            <th><lable for="id_Eligibility">Eligibility</lable></th>
+            <td><input type="text" id="id_Eligibility" name="Eligibility" value="{{edited.Eligibility}}"></td>
+        </tr>
+        <tr>
+              <th><lable for="id_Subject">Subject</lable></th>
+              <td><input type="text" id="id_Subject" name="Subject" value="{{edited.Subject}}"></td>
+        </tr>
+        <tr>
+            <th><lable for="id_Addmission_start_date">Addmission_start_date</lable></th>
+            <td><input type="date" name="Addmission_start_date" value="{{ edited.Addmission_start_date|date:'Y-m-d' }}"></td>
+        </tr>
+        <tr>
+            <th><label for="id_Addmission_end_date">Addmission_end_date</label></th>
+            <td><input type="date" name="Addmission_end_date" value="{{ edited.Addmission_end_date|date:'Y-m-d' }}"></td>
+        </tr>
+        <tr>
+
+            <td><button type="submit" value="save">Save<br></button></td>
+        </tr>
+    </form>
+</table>
+
+</body>
+</html>

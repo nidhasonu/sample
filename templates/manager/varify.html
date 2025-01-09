@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Verification Dashboard</title>
+    <style>
+
+
+    body {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        background-color: #f8fafc;
+        color: #1f2937;
+        margin: 0;
+        padding: 0;
+    }
+
+    h1 {
+        text-align: center;
+        margin-top: 30px;
+        color: #1e40af;
+        font-size: 32px;
+        text-transform: uppercase;
+        letter-spacing: 1.2px;
+    }
+
+    .verify_box {
+        max-width: 1100px;
+        margin: 40px auto;
+        padding: 25px;
+        background-color: #ffffff;
+        border-radius: 10px;
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.08);
+        border: 1px solid #e5e7eb;
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 20px;
+        font-size: 16px;
+    }
+
+    th, td {
+        padding: 16px 14px;
+        text-align: left;
+        border-bottom: 1px solid #e5e7eb;
+    }
+
+    th {
+        background-color: #1e40af;
+        color: white;
+        text-transform: uppercase;
+        font-weight: 600;
+    }
+
+    td {
+        color: #374151;
+    }
+
+    .alert-success {
+        background-color: #10b981;
+        color: white;
+        padding: 12px;
+        border-radius: 6px;
+        margin-bottom: 15px;
+    }
+
+    .alert-error {
+        background-color: #ef4444;
+        color: white;
+        padding: 12px;
+        border-radius: 6px;
+        margin-bottom: 15px;
+    }
+
+    select {
+        padding: 10px;
+        font-size: 16px;
+        border: 1px solid #d1d5db;
+        border-radius: 6px;
+        color: #1f2937;
+        width: 160px;
+    }
+
+    button {
+        padding: 10px 16px;
+        background-color: #2563eb;
+        color: white;
+        border: none;
+        border-radius: 6px;
+        cursor: pointer;
+        font-size: 14px;
+        margin-left: 10px;
+    }
+
+    button:hover {
+        background-color: #1d4ed8;
+    }
+
+    .empty {
+        text-align: center;
+        color: #9ca3af;
+        font-style: italic;
+    }
+
+    @media (max-width: 768px) {
+        .verify_box {
+            padding: 20px;
+        }
+
+        table {
+            font-size: 14px;
+        }
+
+        select, button {
+            width: 100%;
+            margin: 8px 0;
+        }
+    }
+</style>
+</head>
+<body>
+
+    <div class="verify_box">
+        <h1>Verification Dashboard</h1>
+        {% if messages %}
+        <div>
+            {% for message in messages %}
+            <div class="alert {% if message.tags == 'success' %}alert-success{% elif message.tags == 'error' %}alert-error{% endif %}">
+                {{ message }}
+            </div>
+            {% endfor %}
+        </div>
+        {% endif %}
+        <table>
+            <thead>
+                <tr>
+                    <th>Username</th>
+                    <th>Email</th>
+                    <th>User Type</th>
+                    <th>Status</th>
+                    <th>Change Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for user in user_status %}
+                <tr>
+                    <td>{{ user.username }}</td>
+                    <td>{{ user.email }}</td>
+                    <td>{{ user.get_user_type_display }}</td>
+                    <td>{{ user.get_status_display }}</td>
+                    <td>
+                        <form action="{% url 'verification' user.id %}" method="post">
+                            {% csrf_token %}
+                            <select name="status">
+                                <option value="pending" {% if user.status == "pending" %}selected{% endif %}>Pending</option>
+                                <option value="verified" {% if user.status == "verified" %}selected{% endif %}>Verified</option>
+                                <option value="rejected" {% if user.status == "rejected" %}selected{% endif %}>Rejected</option>
+                            </select>
+                            <button type="submit" class="btn btn-update">Update</button>
+                        </form>
+                    </td>
+                </tr>
+                {% empty %}
+                <tr class="empty">
+                    <td colspan="5">No pending users or trainers.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+</body>
+</html>

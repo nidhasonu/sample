@@ -1,0 +1,93 @@
+<!-- {% load static %} -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+       body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f9;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+       }
+
+    form {
+        background-color: #007BFF; /* Blue background */
+        color: #fff; /* White text */
+        padding: 20px 30px;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        width: 100%;
+        max-width: 400px;
+        box-sizing: border-box;
+        margin-top: 90px;
+        margin-right: 10px;
+      
+    }
+
+    form label {
+        display: block;
+        margin-bottom: 5px;
+        font-weight: bold;
+    }
+
+    form input[type="text"],
+    form input[type="datetime-local"],
+    form button {
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 15px;
+        border: none;
+        border-radius: 5px;
+        font-size: 14px;
+    }
+
+    form input[type="text"],
+    form input[type="datetime-local"] {
+        background-color: #e9ecef;
+        color: #333;
+    }
+
+    form input[type="text"]:focus,
+    form input[type="datetime-local"]:focus {
+        outline: none;
+        border: 1px solid #0056b3;
+        box-shadow: 0 0 5px rgba(0, 91, 187, 0.5);
+    }
+
+    h1{
+        color: black;
+        
+    }
+
+    form button {
+        background-color: #28a745; /* Green button */
+        color: #fff;
+        cursor: pointer;
+        font-weight: bold;
+        transition: background-color 0.3s ease;
+    }
+
+    form button:hover {
+        background-color: #218838;
+    }
+
+    </style>
+</head>
+<body>
+<form method="post">
+   <!-- {% csrf_token %} -->
+   <h1>PROGRAMME NOTIFICATION</h1>
+    <label for="">Titel</label><input type="text" name="Titel" id="Titel"><br><br>
+    <label for="">Venue</label><input type="text" name="Venue" id="Venue"><br><br>
+    <label for="">Start_date</label><input type="datetime-local" name="Start_date" id="Start_date"><br><br>
+    <label for="">End_date</label><input type="datetime-local" name="End_date" id="End_date"><br><br>
+    <button type="submit">add</button>
+</form>
+</body>
+</html>

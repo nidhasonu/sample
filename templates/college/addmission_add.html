@@ -1,0 +1,66 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+
+
+            table{
+
+                height: 450px;
+                width: 400px;
+                background-color: rgb(0, 183, 255);
+                border: 1px solid white;
+                margin-left: 400px;
+                margin-top: 40px;
+
+                }
+
+            input{
+                width:150px;
+                height:30px;
+            }
+
+            label{
+                width:150px;
+            }
+
+            div{
+                margin-left:530px;
+                margin-top:40px;
+            }
+
+    </style>
+</head>
+<body>
+<h1>Addmission Details</h1>
+<form method="post">
+     {% csrf_token %}
+<table border="1px solid">
+    <tr><th><label for="id_college_name">college_name</label> </th>
+    <td><input type="text" name="college_name"></td>
+    </tr>
+    <tr><th><label for="id_Eligibility">Eligibility</label></th>
+        <td><input type="text" name="Eligibility"></td>
+    </tr>
+    <tr>
+        <th><label for="id_Subject">Subject</label></th>
+        <td><input type="text" name="Subject"> </td>
+    </tr>
+    <tr>
+        <th><lable for="id_Addmission_start_date">Addmission_start_date</lable></th>
+        <td><input type="date" name="Addmission_start_date"></td>
+    </tr>
+    <tr>
+        <th><label fo="id_Addmission_end_date">Addmission_end_date</label></th>
+        <td><input type="date" name="Addmission_end_date"></td>
+    </tr>
+</table>
+    <div>
+<input type="submit" value="Submit">
+    </div>
+</form>
+</body>
+</html>

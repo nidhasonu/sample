@@ -1,0 +1,104 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+<style>
+    body{
+   background-image: url("{% static 'images/image1.jpg' %}");
+   background-size: cover;
+   background-repeat: no-repeat;
+
+  }
+  .login-content{
+       height: 350px;
+       width: 300px;
+       text-align: center;
+       padding:10vh;
+       background-color: rgb(147, 236, 236,0.3);
+       margin: auto;
+       margin-top:90px;
+       padding-top: 90px;
+   }
+   .login-content input{
+      width:300px;
+      height:45px;
+      margin:10px;
+      font-size: 15px;
+   }
+   .btn{
+      width: 100px;
+      height: 70px;
+      margin-bottom: 40px;
+      border-radius: 4px;
+   }
+   #reg{
+      margin-top:30px;
+      color: rgb(9, 14, 14);
+      font-size: 30px;
+   }
+
+   .options {
+            display: none;
+            position: absolute;
+            background-color: #f9f9f9;
+            box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+            padding: 10px 0;
+            z-index: 1;
+            list-style: none;
+        }
+
+        #reg:hover .options {
+            display: block;
+        }
+
+        .options li {
+            padding: 8px ;
+        }
+
+        .options li:hover {
+            background-color: #222839;
+        }
+
+        .options a {
+            text-decoration: none;
+            color: black;
+        }
+
+        .options a:hover {
+            color: white;
+        }
+
+
+       ul li:hover{
+        background-color: rgb(12, 190, 80);
+        border-radius: 5px;
+        height: 60px;
+       }
+
+
+
+</style>
+</head>
+<body>
+
+   <div class="login-content">
+        <form method="post">
+            {% csrf_token %}
+
+            <input type="text" name="username" placeholder="username" required><br>
+            <input type="password" name="password"  placeholder="password" required><br>
+            <input class="btn"  type="submit" value="Login"><br>
+            <p id="reg">already a user<a href="#">Register</a></p>
+            <ul class="options">
+               <li><a href="{% url 'students' %}">STUDENT</a></li>
+               <li><a href="{% url 'details' %}">COLLEGE</a></li>
+               <li><a href="{% url 'view_programme' %}">ADMIN</a></li>
+               
+           </ul>
+    </form>
+    </div>
+</body>
+</html>

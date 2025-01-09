@@ -1,0 +1,148 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f8f9fa;
+}
+
+
+.notification-container {
+    max-width: 800px;
+    margin: 60px ;
+    padding: 10px;
+}
+
+
+.notification-card {
+    background-color: #ffffff;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    padding: 20px;
+    margin-bottom: 20px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.notification-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0px 6px 10px rgba(0, 0, 0, 0.15);
+}
+
+
+.notification-card table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.notification-card th,
+.notification-card td {
+    text-align: left;
+    padding: 10px;
+    vertical-align: top;
+}
+
+.notification-card th {
+    width: 30%;
+    font-weight: bold;
+    color: #555;
+    background-color: #f7f7f7;
+}
+
+.notification-card td {
+    background-color: #fff;
+    color: #333;
+}
+
+
+.button-group {
+    margin-top: 20px;
+    text-align: right;
+}
+
+.button-group a {
+    text-decoration: none;
+    display: inline-block;
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-size: 14px;
+    font-weight: bold;
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+.button-group a:hover {
+    transform: scale(1.05);
+}
+
+.button-group a:first-child {
+    background-color: #007bff;
+    color: white;
+    margin-right: 10px;
+}
+
+.button-group a:first-child:hover {
+    background-color: #0056b3;
+}
+
+.button-group a:last-child {
+    background-color: #dc3545;
+    color: white;
+}
+
+.button-group a:last-child:hover {
+    background-color: #a71d2a;
+}
+
+
+@media (max-width: 600px) {
+    .notification-card {
+        padding: 15px;
+    }
+
+    .button-group {
+        text-align: center;
+    }
+
+    .button-group a {
+        margin-bottom: 10px;
+    }
+}
+
+
+    </style>
+</head>
+<body>
+<div class="notification-container" >
+    {% for notification in data %}
+    <div class="notification-card" >
+        <table >
+            <tr>
+                <th >Subject</th>
+                <td >{{ notification.subject }}</td>
+            </tr>
+            <tr>
+                <th style="text-align: left; padding: 10px;">Notification Content</th>
+                <td style="padding: 10px;">{{ notification.notification_content }}</td>
+            </tr>
+            <tr>
+                <th style="text-align: left; padding: 10px;">Exam Date</th>
+                <td style="padding: 10px;">{{ notification.exam_date }}</td>
+            </tr>
+        </table>
+        <div class="button-group" style="margin-top: 20px; text-align: right;">
+            <a href="{% url 'EDIT' notification.id %}" style="text-decoration: none; background-color: #007bff; color: white; padding: 10px 15px; border-radius: 5px; margin-right: 10px;">Edit</a>
+            <a href="{% url 'Deleting' notification.id %}" style="text-decoration: none; background-color: #dc3545; color: white; padding: 10px 15px; border-radius: 5px;">Delete</a>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+
+</body>
+</html>

@@ -1,0 +1,109 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Programme List</title>
+    <style>
+        body {
+
+               background-image: url("{% static 'images/AdobeStock_847523890_Preview.jpeg.' %}");
+               background-size: cover;
+               background-repeat: no-repeat;
+                font-family: Arial, sans-serif;
+                margin: 0;
+                padding: 0;
+                background-color: #f4f4f9;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                flex-direction: column;
+        }
+
+        .card {
+            width: 90%;
+            max-width: 600px;
+              background-color: rgb(147, 236, 236,0.4);
+            margin: 20px auto;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+
+        th, td {
+            text-align: left;
+            padding: 10px;
+            border: 1px solid #ccc;
+        }
+
+        th {
+            background-image: url(st);
+            color: black;
+            font-weight: bold;
+        }
+
+        button {
+            background-color: #007bff;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        button a {
+            color: white;
+            text-decoration: none;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        .no-image {
+            color: #888;
+            font-style: italic;
+        }
+
+        p {
+            margin: 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="card">
+        {% for programme in details %}
+        <table>
+            <tr>
+                <th>Title</th>
+                <td>{{ programme.Titel }}</td>
+            </tr>
+            <tr>
+                <th>Venue</th>
+                <td>{{ programme.Venue }}</td>
+            </tr>
+            <tr>
+                <th>Start Date</th>
+                <td>{{ programme.Start_date }}</td>
+            </tr>
+            <tr>
+                <th>End Date</th>
+                <td>{{ programme.End_date }}</td>
+            </tr>
+            <tr>
+                <td><button><a href="{% url 'edit_progarme' programme.id %}">Edit</a></button></td>
+                <td><button><a href="{% url 'delt_progrm' programme.id %}">Delete</a></button></td>
+            </tr>
+        </table>
+        {% endfor %}
+    </div>
+</body>
+</html>

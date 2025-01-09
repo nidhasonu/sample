@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h2>Your Requests</h2>
+<table>
+    <tr>
+        <th>College</th>
+        <th>Program</th>
+        <th>Request Type</th>
+        <th>Status</th>
+        <th>Date Submitted</th>
+    </tr>
+    {% for request in requests %}
+    <tr>
+        <td>{{ request.college.name }}</td>
+        <td>{{ request.program.name }}</td>
+        <td>{{ request.get_request_type_display }}</td>
+        <td>{{ request.get_status_display }}</td>
+        <td>{{ request.date_submitted }}</td>
+    </tr>
+    {% endfor %}
+</table>
+
+</body>
+</html>

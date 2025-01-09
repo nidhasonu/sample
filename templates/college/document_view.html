@@ -1,0 +1,146 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document View</title>
+    <style>
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+    font-size: 16px;
+    text-align: left;
+}
+
+table th, table td {
+    padding: 12px;
+    border: 1px solid #ddd;
+}
+
+table th {
+    background-color: #f4f4f4;
+    color: #333;
+    font-weight: bold;
+}
+
+table tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+table tr:hover {
+    background-color: #f1f1f1;
+}
+
+td a {
+    color: #0066cc;
+    text-decoration: none;
+}
+
+td a:hover {
+    text-decoration: underline;
+}
+
+
+button {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    margin: 5px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+button a {
+    color: white;
+    text-decoration: none;
+}
+
+button:hover {
+    background-color: #45a049;
+}
+
+button:active {
+    background-color: #3e8e41;
+    transform: translateY(2px);
+}
+
+    </style>
+</head>
+<body>
+<table border="1px">
+    {% csrf_token %}
+    {% for data in document %}
+    <tr>
+        <th><label>SSLC Certificate</label></th>
+        <td>
+            {% if data.Sslc_certificate %}
+                <object data="{{ data.Sslc_certificate.url }}" type="application/pdf" width="300" height="400"></object>
+                <a href="{{ data.Sslc_certificate.url }}" target="_blank">View Certificate</a>
+                {{ data.Sslc_certificate }}
+            {% else %}
+                No certificate uploaded
+            {% endif %}
+        </td>
+    </tr>
+    <tr>
+        <th>Plus Two Certificate</th>
+        <td>
+            {% if data.Plustwo_certificate %}
+                <object data="{{ data.Plustwo_certificate.url }}" type="application/pdf" width="300" height="400"></object>
+                <a href="{{ data.Plustwo_certificate.url }}" target="_blank">View Certificate</a>
+                {{ data.Plustwo_certificate }}
+            {% else %}
+                No certificate uploaded
+            {% endif %}
+        </td>
+    </tr>
+    <tr>
+        <th>ID Card</th>
+        <td>
+            {% if data.ID_card %}
+                <object data="{{ data.ID_card.url }}" type="application/pdf" width="300" height="400"></object>
+                <a href="{{ data.ID_card.url }}" target="_blank">View Certificate</a>
+                {{ data.ID_card }}
+            {% else %}
+                No certificate uploaded
+            {% endif %}
+        </td>
+    </tr>
+    <tr>
+        <th>TC</th>
+        <td>
+            {% if data.TC %}
+                <object data="{{ data.TC.url }}" type="application/pdf" width="300" height="400"></object>
+                <a href="{{ data.TC.url }}" target="_blank">View Certificate</a>
+                {{ data.TC }}
+            {% else %}
+                No certificate uploaded
+            {% endif %}
+        </td>
+    </tr>
+    <tr>
+        <th>CC</th>
+        <td>
+            {% if data.CC %}
+                <object data="{{ data.CC.url }}" type="application/pdf" width="300" height="400"></object>
+                <a href="{{ data.CC.url }}" target="_blank">View Certificate</a>
+                {{ data.CC }}
+            {% else %}
+                No certificate uploaded
+            {% endif %}
+        </td>
+    </tr>
+    <tr>
+        <td colspan="2">
+            <button><a href="{% url 'document_edit' data.id %}">Edit</a></button>
+            <button><a href="{% url 'document_delte' data.id %}">Delete</a></button>
+        </td>
+    </tr>
+    {% endfor %}
+</table>
+</body>
+</html>

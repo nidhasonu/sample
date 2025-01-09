@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        .container{
+            height:100vh;
+            width:200px;
+            background-color: black;
+            color: white;
+            font-size: 21px;
+        }
+
+        .dpdwn .options li{
+            display:none;
+        }
+
+        .dpdwn:hover .options li{
+            display:block;
+        }
+
+        .options li:hover{
+           background-color:cadetblue;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <nav>
+           <ul class="dpdwn">
+              <a>Addmission Pepers</a>
+
+                <ul class="options">
+                    <li><a href="{% url 'add_addmission' %}">Add</a></li>
+                    <li><a href="{% url 'view_addmission' %}">Manage</a></li>
+                </ul>
+            </ul>
+        <ul class="dpdwn">
+            <a>Addmission Documents</a>
+            <ul class="options">
+                <li><a href="{% url 'add_document' %}">Add</a></li>
+                <li><a href="{% url 'document_view' %}">Manage</a></li>
+            </ul>
+        </ul>
+        <ul class="dpdwn">
+            <a>Exam Notifications</a>
+            <ul class="options">
+                <li><a href="{% url 'notification'%}">Add</a></li>
+                <li><a href="{% url 'notification_view' %}">Manage</a></li>
+            </ul>
+        </ul>
+      <ul class="dpdwn">
+        <a>Facility</a>
+        <ul class="options">
+            <li><a href="{% url 'facility_add' %}">Add</a></li>
+            <li><a href="{% url 'view_facility' %}">Manage</a></li>
+        </ul>
+      </ul>
+        <ul class="dpdwn">
+        <a>Progaramme Notifications</a>
+        <ul class="options">
+            <li><a href="{% url 'add_programme' %}">Add</a></li>
+            <li><a href="{% url 'view_programme' %}">Manage</a></li>
+            </ul>
+            </ul>
+            <li><a href="{% url 'view_student' %}">Students</a></li>
+            <li><a href="">Requests</a></li>
+            </ul>
+    </nav>  
+    <div>
+    <img src="{% static 'images/harvard-university-cambridge-usa.jpg' %}" alt=""></div>
+</div>
+</body>
+</html>

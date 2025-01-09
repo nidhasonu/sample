@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+
+body {
+    font-family: Arial, sans-serif;
+    margin: 20px;
+    background-color: #f9f9f9;
+    color: #333;
+}
+
+
+table {
+    width: 100%;
+    max-width: 600px;
+    margin: 20px auto;
+    border-collapse: collapse;
+    background-color: #fff;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+table th, table td {
+    padding: 15px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+table th {
+    background-color: #f4f4f4;
+    font-weight: bold;
+    text-transform: capitalize;
+}
+
+table tr:last-child td {
+    border-bottom: none;
+}
+
+table input[type="file"] {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 14px;
+    box-sizing: border-box;
+    margin-top: 5px;
+}
+
+
+input[type="submit"] {
+    display: block;
+    width: 100%;
+    max-width: 600px;
+    margin: 20px auto;
+    padding: 10px 15px;
+    background-color: #4CAF50;
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    text-transform: uppercase;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+input[type="submit"]:hover {
+    background-color: #45a049;
+}
+
+
+@media (max-width: 600px) {
+    table {
+        width: 90%;
+    }
+
+    table th, table td {
+        font-size: 14px;
+    }
+
+    input[type="file"], input[type="submit"] {
+        font-size: 14px;
+       
+    }
+}
+
+    </style>
+</head>
+<body>
+<form method="post" enctype="multipart/form-data">
+     {% csrf_token %}
+<table border="1px">
+    <tr>
+        <th><label for="id_Sslc_certificate">Sslc_certificate</label></th>
+        <td><input type="file" name="Sslc_certificate"></td>
+    </tr>
+    <tr><th><label for="id_Plustwo_certificate">Plustwo_certificate</label></th>
+        <td><input type="file" name="Plustwo_certificate"></td>
+    </tr>
+    <tr>
+        <th><label for="id_ID_card">ID_card</label></th>
+        <td><input type="file" name="ID_card"></td>
+
+    </tr>
+    <tr>
+        <th><label for="id_TC">TC</label></th>
+        <td><input type="file" name="TC"></td>
+    </tr>
+    <tr>
+        <th><label for="id_CC">CC</label></th>
+        <td><input type="file" name="CC"></td>
+    </tr>
+
+</table>
+     <input type="submit" value="Submit">
+
+</form>
+</body>
+</html>

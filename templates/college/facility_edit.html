@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<table border="1px solid:black">
+    <form class="edit" method="POST">
+        {% csrf_token %}
+
+        <tr>
+            <th><label>Name</label></th>
+        <td><input type="text" id="id_Name" name="Name" value="{{facility.Name}}"></td>
+        </tr>
+        <tr>
+            <th><label>Description</label></th>
+            <td><input type="text" id="id_Description" name="Description" value="{{facility.Description}}"></td>
+        </tr>
+        <tr>
+         <th><label>Image</label></th>
+    <td>
+    {% if facility.image %}
+    <img width="270px" height="190px" src="{{ facility.image.url }}" alt="">
+    {% else %}
+        <p>No image available </p>
+    {% endif %}
+        <input type="file" name="image">
+    </td>
+    </tr>
+
+        <tr>
+            <td><button type="submit" value="save">Save<br><br></button></td>
+        </tr>
+    </form>
+</table>
+
+</body>
+</html>

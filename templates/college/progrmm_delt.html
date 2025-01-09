@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+
+.confirmation-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+}
+
+
+.confirmation-box {
+    background: #fff;
+    padding: 20px 30px;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    width: 100%;
+    max-width: 400px;
+}
+
+
+.confirmation-box h2 {
+    color: #333;
+    margin-bottom: 10px;
+}
+
+
+.confirmation-box p {
+    color: #666;
+    margin-bottom: 20px;
+    font-size: 0.9em;
+}
+
+
+.delete-btn {
+    background-color: #e74c3c;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-size: 1em;
+    cursor: pointer;
+    margin-right: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.delete-btn:hover {
+    background-color: #c0392b;
+}
+
+.cancel-btn {
+    background-color: #bdc3c7;
+    color: #333;
+    text-decoration: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-size: 1em;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.cancel-btn:hover {
+    background-color: #95a5a6;
+}
+
+    </style>
+</head>
+<body>
+    <div class="confirmation-container">
+        <div class="confirmation-box">
+            <h2>Are you sure?</h2>
+            <form method="post">
+                {% csrf_token %}
+                <button type="submit" class="delete-btn">Delete</button>
+                <a href="javascript:history.back()" class="cancel-btn">Cancel</a>
+            </form>
+        </div>
+    </div>
+</body>
+</html>
+
+</body>
+</html>

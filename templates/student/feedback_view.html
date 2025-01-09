@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+{% for feedback in view %}
+<table border="1px solid black">
+    <tr>
+<th>
+      <label>Titel</label></th>
+       <td>{{feedback.titel }}</td>
+    </tr>
+    <tr>
+        <th><lable>Message </lable></th>
+        <td>{{ feedback.desciption }}</td>
+    </tr>
+</table>
+
+<button> <a href="{% url 'feedback_edit' feedback.id %}">Edit</a></button>
+<button> <a href="{% url 'feedback_delt' feedback.id %}">Delete</a></button>
+{% endfor %}
+</body>
+</html>

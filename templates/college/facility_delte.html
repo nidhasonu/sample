@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+       
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f9fafb;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+
+.wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5); 
+}
+
+
+.modal {
+    background: white;
+    padding: 25px 30px;
+    border-radius: 10px;
+    text-align: center;
+    max-width: 400px;
+    width: 90%;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+
+.modal h1 {
+    font-size: 1.8em;
+    color: #333;
+    margin-bottom: 15px;
+}
+
+.modal p {
+    font-size: 1em;
+    color: #666;
+    margin-bottom: 25px;
+}
+
+
+.button-group {
+    display: flex;
+    justify-content: space-around;
+}
+
+
+.btn {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    font-size: 1em;
+    text-decoration: none;
+    text-align: center;
+    cursor: pointer;
+}
+
+.delete {
+    background-color: #ff4d4d;
+    color: white;
+    transition: background-color 0.3s ease;
+}
+
+.delete:hover {
+    background-color: #e60000;
+}
+
+
+.cancel {
+    background-color: #ddd;
+    color: #333;
+    text-decoration: none;
+    transition: background-color 0.3s ease;
+}
+
+.cancel:hover {
+    background-color: #bbb;
+}
+
+    </style>
+</head>
+<body>
+<form method="post">
+    {% csrf_token %}
+<p>are you sure delete ?</p>
+<input type="submit" value="delete">
+</form>
+</body>
+</html>

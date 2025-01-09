@@ -1,0 +1,85 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Facility Form</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f9;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .facility {
+            background-color: #6fa8e6;
+            padding: 20px 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 400px;
+        }
+
+        .facility label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 5px;
+            color: #333;
+        }
+
+        .facility input[type="text"],
+        .facility input[type="file"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+
+        .facility button {
+            background-color: #007bff;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+            font-size: 16px;
+            cursor: pointer;
+            width: 100%;
+        }
+
+        .facility button:hover {
+            background-color: #0056b3;
+        }
+
+        .facility input:focus {
+            outline: none;
+            border-color: #007bff;
+            box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+        }
+    </style>
+</head>
+<body>
+    <div class="facility">
+        <form method="post" enctype="multipart/form-data">
+             {% csrf_token %}
+            <label for="Name">Name</label>
+            <input type="text" name="Name" id="Name" required>
+
+            <label for="Description">Description</label>
+            <input type="text" name="Description" id="Description" required>
+
+            <label for="image">Image</label>
+            <input type="file" name="image" id="image" accept="image/*">
+
+            <button type="submit">Add</button>
+        </form>
+    </div>
+</body>
+</html>
