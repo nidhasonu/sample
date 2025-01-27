@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <title>Title</title>
     <style>
-/* styles.css */
+
 body {
     font-family: Arial, sans-serif;
     background-color: #f9f9f9;
@@ -99,7 +99,7 @@ button:hover {
     opacity: 0.9;
 }
 
-/* Specific styles for edit form table */
+
 table {
     width: 60%;
     margin: 20px auto;
@@ -160,20 +160,21 @@ button[type="submit"]:hover {
         <tr>
             <th><label>Image</label></th>
     <td>
-    {% if details.home_image %}
-    <img src="{{ details.home_image.url }}" alt="">
+    {% if details.college_image %}
+    <img height="200px" width="300px" src="{{ details.college_image.url  }}" alt="">
+        <input type="file" id="id_college_image" name="college_image" value="{{ details.college_image.url }}">
     {% else %}
         <p>No image available </p>
     {% endif %}
     </td>
     </tr>
         <tr>
-            <td><label for="id_titel">titel:</label></td>
-            <td><input type="text" id="id_titel" name="titel" value="{{ details.titel }}"><br><br></td>
+            <td><label for="id_college_name">college_name:</label></td>
+            <td><input type="text" id="id_college_name" name="college_name" value="{{ details.college_name }}"><br><br></td>
         </tr>
         <tr>
-            <td><label for="id_Location">Location:</label></td>
-            <td><input type="text" id="id_Location" name="Location" value="{{ details.Location }}"><br><br></td>
+            <td><label for="id_City">City:</label></td>
+            <td><input type="text" id="id_City" name="City" value="{{ details.City }}"><br><br></td>
         </tr>
         <tr>
             <td colspan="2">

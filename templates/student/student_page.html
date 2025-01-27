@@ -1,96 +1,251 @@
-{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Student Registration</title>
-   <style>
-       body{
-    background-image:url("{% static 'images/cambridge-college.jpg' %}");
-    background-size: cover ;
-    background-repeat: no-repeat;
+    <style>
+        /* General Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-}
-.register_form{
-    height: 700px;
-    width: 350px;
-    background-color: rgb(250, 229, 229,0.3);
-    padding-left: 50px;
-    margin-left: 350px;
-    padding-top: 50px;
-    margin-top: 20px;
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #ff9a8b, #ff6a88, #ff3e4d); /* Soft pink-red gradient */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            color: #fff;
+            margin: 0;
+            overflow-y: auto; /* Allow scrolling when content exceeds screen height */
+        }
 
-}
-.input{
-    width: 300px;
-    height: 30px;
-    padding: 8px;
-    font-size: 15px;
-}
-#btn{
-border-radius: 10px;
-background-image: linear-gradient(red, yellow);
-width: 200px;
-padding:12px;
-}
+        .container {
+            width: 100%;
+            max-width: 850px;
+            padding: 40px;
+            background-color: rgba(255, 255, 255, 0.9); /* Light white background with transparency */
+            border-radius: 15px;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+            box-sizing: border-box;
+            overflow-y: auto; /* Enable scrolling inside container if needed */
+            max-height: 90vh; /* Limit the height of the form container */
+            animation: fadeIn 1.5s ease-out; /* Fade-in animation */
+        }
 
-       h2{
-       text-align:center;
-       font-size:30px;
-       }
-   </style>
+        /* Animation for the form container */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 38px;
+            color: #333;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        label {
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 8px;
+        }
+
+        input[type="text"], input[type="number"], input[type="email"], input[type="password"], input[type="date"], select {
+            width: 100%;
+            padding: 12px;
+            font-size: 16px;
+            border-radius: 8px;
+            border: 2px solid #e6e6e6;
+            background-color: #fafafa;
+            color: #333;
+            transition: background-color 0.3s ease, border-color 0.3s ease;
+        }
+
+        input:focus, select:focus {
+            border-color: #ff3e4d; /* Bold red border on focus */
+            background-color: #fff;
+            outline: none;
+        }
+
+        .gender-container {
+            display: flex;
+            gap: 25px;
+            margin-bottom: 20px;
+        }
+
+        .gender-container input {
+            margin-right: 8px;
+        }
+
+        .gender-container label {
+            font-weight: normal;
+            color: #333;
+        }
+
+        button {
+            background-color: #ff3e4d; /* Bold red color */
+            color: white;
+            border: none;
+            padding: 15px;
+            font-size: 18px;
+            font-weight: bold;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        button:hover {
+            background-color: #e32d40; /* Darker red on hover */
+            transform: scale(1.05);
+        }
+
+        .form-footer {
+            text-align: center;
+            font-size: 16px;
+            margin-top: 25px;
+            color: #333;
+        }
+
+        .form-footer a {
+            color: #ff3e4d;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .form-footer a:hover {
+            text-decoration: underline;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 30px;
+            }
+
+            h2 {
+                font-size: 28px;
+            }
+
+            button {
+                font-size: 16px;
+            }
+        }
+
+    </style>
 </head>
 <body>
-    <h2>Student Registration</h2>
-    <form method="post">
-        {% csrf_token %}
-        <div class="register_form">
-            <!-- User Credentials -->
-            <input type="text" name="username" placeholder="Username" class="input" required><br>
 
-            <input type="password" name="password" placeholder="Password" class="input" required><br>
+    <div class="container">
+        <h2>Student Registration</h2>
+        <form method="post">
+            {% csrf_token %}
+
+            <!-- User Credentials -->
+            <div>
+                <label for="username">Username</label>
+                <input type="text" name="username" id="username" placeholder="Enter Username" required>
+            </div>
+
+            <div>
+                <label for="password">Password</label>
+                <input type="password" name="password" id="password" placeholder="Enter Password" required>
+            </div>
 
             <!-- Student Details -->
-            <input type="text" name="Name" placeholder="Full Name" class="input" required><br>
+            <div>
+                <label for="name">Full Name</label>
+                <input type="text" name="Name" id="name" placeholder="Enter Full Name" required>
+            </div>
 
-            <input type="number" name="Age" placeholder="Age" class="input" required><br>
+            <div>
+                <label for="age">Age</label>
+                <input type="number" name="Age" id="age" placeholder="Enter Age" required>
+            </div>
 
-            <input type="date" name="Date_of_birth" placeholder="Date of Birth" class="input" required><br>
+            <div>
+                <label for="dob">Date of Birth</label>
+                <input type="date" name="Date_of_birth" id="dob" required>
+            </div>
 
-            <input type="email" name="Email" placeholder="Email" class="input" required><br>
+            <div>
+                <label for="email">Email</label>
+                <input type="email" name="Email" id="email" placeholder="Enter Email" required>
+            </div>
 
-            <input type="text" name="Father_name" placeholder="Father's Name" class="input" required><br>
+            <div>
+                <label for="father_name">Father's Name</label>
+                <input type="text" name="Father_name" id="father_name" placeholder="Enter Father's Name" required>
+            </div>
 
-            <input type="text" name="Mother_name" placeholder="Mother's Name" class="input" required><br><br>
+            <div>
+                <label for="mother_name">Mother's Name</label>
+                <input type="text" name="Mother_name" id="mother_name" placeholder="Enter Mother's Name" required>
+            </div>
 
-            <label>Gender:</label>
-            <label for="male">Male</label>
-            <input id="male" name="Gender" type="radio" value="MALE" required>
-            <label for="female">Female</label>
-            <input id="female" name="Gender" type="radio" value="FEMALE">
-            <label for="other">Other</label>
-            <input id="other" name="Gender" type="radio" value="OTHER"><br><br>
+            <!-- Gender Selection -->
+            <div class="gender-container">
+                <label>Gender</label>
+                <div>
+                    <input type="radio" id="male" name="Gender" value="MALE" required>
+                    <label for="male">Male</label>
+                </div>
+                <div>
+                    <input type="radio" id="female" name="Gender" value="FEMALE">
+                    <label for="female">Female</label>
+                </div>
+                <div>
+                    <input type="radio" id="other" name="Gender" value="OTHER">
+                    <label for="other">Other</label>
+                </div>
+            </div>
 
-            <input type="text" name="City" placeholder="City" class="input" required><br>
+            <div>
+                <label for="city">City</label>
+                <input type="text" name="City" id="city" placeholder="Enter City" required>
+            </div>
 
-            <input type="number" name="Ph_num" placeholder="Phone Number" class="input" required><br>
+            <div>
+                <label for="ph_num">Phone Number</label>
+                <input type="number" name="Ph_num" id="ph_num" placeholder="Enter Phone Number" required>
+            </div>
 
-            <input type="number" name="Addar_num" placeholder="Aadhar Number" class="input" required><br>
+            <div>
+                <label for="adhar_num">Aadhar Number</label>
+                <input type="number" name="Addar_num" id="adhar_num" placeholder="Enter Aadhar Number" required>
+            </div>
 
-            <input type="text" name="Qualification" placeholder="Qualification" class="input" required><br><br>
+            <div>
+                <label for="qualification">Qualification</label>
+                <input type="text" name="Qualification" id="qualification" placeholder="Enter Qualification" required>
+            </div>
 
+            <button type="submit">Submit</button>
+        </form>
 
-             <label for="">university</label>
-    <select name="university" id="id_district">
-        <option value="select"></option>
-        <option value="center">CENTER</option>
-        <option value="calicut">CALICUT</option>
-        <option value="cochin">COCHIN</option>
-        <option value="national">NATIONAL</option>
-    </select><br><br>
-
-            <input id="btn" type="submit" value="Submit">
+        <!-- Footer with Login Link -->
+        <div class="form-footer">
+            <p>Already have an account? <a href="#">Login here</a></p>
         </div>
-    </form>
+    </div>
+
 </body>
 </html>

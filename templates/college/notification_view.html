@@ -137,8 +137,8 @@ body {
             </tr>
         </table>
         <div class="button-group" style="margin-top: 20px; text-align: right;">
-            <a href="{% url 'EDIT' notification.id %}" style="text-decoration: none; background-color: #007bff; color: white; padding: 10px 15px; border-radius: 5px; margin-right: 10px;">Edit</a>
-            <a href="{% url 'Deleting' notification.id %}" style="text-decoration: none; background-color: #dc3545; color: white; padding: 10px 15px; border-radius: 5px;">Delete</a>
+            <a href="{% url 'college:EDIT' notification.id %}" style="text-decoration: none; background-color: #007bff; color: white; padding: 10px 15px; border-radius: 5px; margin-right: 10px;">Edit</a>
+            <a href="{% url 'college:Deleting' notification.id %}" style="text-decoration: none; background-color: #dc3545; color: white; padding: 10px 15px; border-radius: 5px;">Delete</a>
         </div>
     </div>
     {% endfor %}

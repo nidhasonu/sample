@@ -5,67 +5,41 @@
     <title>Title</title>
     <style>
       
-body {
-    font-family: Arial, sans-serif;
-    margin: 20px;
-    background-color: #f9f9f9;
-    color: #333;
-    text-align: center;
-    background-color: #f44336;
-}
-
-
-.admission_delete {
-    background-color: #fff;
-    max-width: 400px;
-    margin: 90px auto;
-    padding: 20px;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    height: 100px;
-   
-}
-
-.admission_delete p {
-    font-size: 18px;
-    font-weight: bold;
-    margin-bottom: 20px;
-}
-
-
-.admission_delete input[type="submit"] {
-    padding: 10px 20px;
-    background-color: #f44336;
-    border: none;
-    color: white;
-    font-size: 14px;
-    font-weight: bold;
-    text-transform: uppercase;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-}
-
-.admission_delete input[type="submit"]:hover {
-    background-color: #d32f2f; 
-}
-
-
-@media (max-width: 600px) {
-    .admission_delete {
-        width: 90%;
-    }
-
-    .admission_delete p {
-        font-size: 16px;
-    }
-
-    .admission_delete input[type="submit"] {
-        font-size: 13px;
-    }
-}
-
+ body {
+            font-family: Arial, sans-serif;
+            background-color: #f9f9f9;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        form {
+            background-color: #fff;
+            padding: 20px 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            width: 300px;
+        }
+        p {
+            font-size: 18px;
+            margin-bottom: 20px;
+            color: #333;
+        }
+        input[type="submit"] {
+            background-color: #20dbdb;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            font-size: 16px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        input[type="submit"]:hover {
+            background-color: #20dbdb;
+        }
     </style>
 </head>
 <body>

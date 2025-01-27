@@ -24,8 +24,8 @@ urlpatterns = [
     path('student/', include('student.urls')),
     path('college/',include('college.urls')),
     path('manager/',include('manager.urls')),
-    path('user/',include('userapp.urls',namespace='userapp'))
+    path('',include('userapp.urls',namespace='userapp'))
 ]
 
 if settings.DEBUG:
-    urlpatterns += static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

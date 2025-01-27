@@ -1,10 +1,11 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from .models import collegemodel
 from .forms import *
 from django.views import View
 from django.http import HttpResponse
 from .models import *
 from student. models import studentmodel
+from django.contrib import messages
 # Create your views here.
 class college_add(View):
     def get(self, request):
@@ -31,55 +32,69 @@ class college_add(View):
             return render(request, 'college/collegedetails.html', {'form': add})
 
 
+
+
 class CollegeNotification(View):
-    def get(self, request, college_id):
-        """
-        Display form for adding a new exam notification and list of existing notifications for the college.
-        """
-        college = get_object_or_404(CollegeModel, id=college_id)
-        form = NotificationForm()
-        notifications = ExamNotification.objects.filter(college=college)
-        return render(request, 'college/notification.html', {'form': form, 'notifications': notifications, 'college': college})
+        def get(self, request):
+            return render(request, 'college/notification.html')
 
-    def post(self, request, college_id):
-        """
-        Handle submission of the exam notification form and associate it with the specific college.
-        """
-        college = get_object_or_404(CollegeModel, id=college_id)
-        form = NotificationForm(request.POST)
-        if form.is_valid():
-            notification = form.save(commit=False)
-            notification.college = college
-            notification.save()
-
-            return redirect('college_notification', college_id=college.id)
-        else:
-            notifications = ExamNotification.objects.filter(college=college)
-            return render(request, 'college/notification.html', {'form': form, 'notifications': notifications, 'college': college})
-
-
-
-
-
+        def post(self, request):
+            if 'login_id' not in request.session:
+                messages.error(request, 'Session expired. Please log in again.')
+                return redirect('userapp:loginpages')
+            try:
+                print("session id ------------------------>", request.session['login_id'])
+                login = Usermodel.objects.get(id=request.session['login_id'])
+                print("login-------------------->",login)
+                college = collegemodel.objects.filter(user_pages_id=login)
+                print("college------------->",college)
+                if not college:
+                    messages.error(request, 'You are not authorized to upload notification')
+                    return redirect('userapp:loginpages')
+            except Usermodel.DoesNotExist:
+                messages.error(request, 'Invalid session. Please log in again.')
+                return redirect('userapp:loginpages')
+            picture = NotificationForm(request.POST, request.FILES)
+            if picture.is_valid():
+                c = picture.save(commit=False)
+                c.lock = collegemodel.objects.get(user_pages_id=login)
+                c.connect = login
+                c.save()
+                messages.success(request, 'notification successfully.')
+                return redirect('notification_view')
+            else:
+                messages.error(request, 'Unable . Please try again.')
+            return render(request, 'college/notification.html')
 
 
 class notification_views(View):
-    def get(self,request):
-        notification=ExamNotification.objects.all()
-        return render(request,"college/notification_view.html",{'data':notification})
-   
-   
+    def get(self, request):
+        try:
+            content = request.session.get('login_id')
+            content_media = ExamNotification.objects.filter(connect=content)
+        except Usermodel.DoesNotExist:
+            return HttpResponse("User profile not found for the current user", status=404)
+        return render(request, "college/notification_view.html",{'data':content_media})
+
+
+
 class notification_edit(View):
-    def get(self,request,id):
-        edit=ExamNotification.objects.get(pk=id)
-        return render(request,"college/notification_editing.html",{'editings':edit})
-    def post(self,request,id):
-        edit = ExamNotification.objects.get(pk=id)
-        form = NotificationForm(request.POST,instance=edit)
-        if form.is_valid():
-            form.save()
-            return redirect("notification_view")
-        return render(request, "college/notification_editing.html", {'editings': edit})
+        def get(self, request, id):
+            items = get_object_or_404(ExamNotification, pk=id)
+            return render(request, 'college/notification_editing.html', {'editings': items})
+
+        def post(self, request, id):
+            items = get_object_or_404(ExamNotification, pk=id)
+            item = NotificationForm(request.POST, request.FILES, instance=items)
+            if item.is_valid():
+                data = item.save(commit=False)
+                data.connect = Usermodel.objects.get(id=request.session['login_id'])
+                data.save()
+                messages.success(request, 'notification edited')
+                return redirect('notification_view')
+            return render(request, 'college/notification_editing.html', {'editings': items})
+
+
 
 class notification_delete(View):
     def get(self,request,id):
@@ -92,33 +107,62 @@ class notification_delete(View):
 
 
 class addmission_add(View):
-    def get(self,request):
-        notificate_add = addmission_form()
-        return render(request, 'college/addmission_add.html', {'form': notificate_add})
+        def get(self, request):
+            return render(request, 'college/addmission_add.html')
 
-    def post(self, request):
-        form = addmission_form(request.POST)
-        if form.is_valid():
-            form.save()
-            return redirect('view_addmission')
-        else:
-            return render(request, 'college/addmission_add.html', {'form': form})
+        def post(self, request):
+            if 'login_id' not in request.session:
+                messages.error(request, 'Session expired. Please log in again.')
+                return redirect('userapp:loginpages')
+            try:
+                print("session id ------------------------>", request.session['login_id'])
+                login = Usermodel.objects.get(id=request.session['login_id'])
+                print("login-------------------->", login)
+                college = collegemodel.objects.filter(user_pages_id=login)
+                print("college------------->", college)
+                if not college:
+                    messages.error(request, 'You are not authorized to upload admissions')
+                    return redirect('userapp:loginpages')
+            except Usermodel.DoesNotExist:
+                messages.error(request, 'Invalid session. Please log in again.')
+                return redirect('userapp:loginpages')
+            add = addmission_form(request.POST, request.FILES)
+            if add.is_valid():
+                all = add.save(commit=False)
+                all.lock = collegemodel.objects.get(user_pages_id=login)
+                all.connect = login
+                all.save()
+                messages.success(request, 'addmission successfully.')
+                return redirect('view_addmission')
+            else:
+                messages.error(request, 'Unable . Please try again.')
+            return render(request, 'college/addmission_add.html')
+
 
 class addmission_view(View):
-    def get(self,request):
-        view_addmission=Addmission_details.objects.all()
-        return render(request,"college/addmission_view.html",{'data':view_addmission})
+      def get(self, request):
+        try:
+            contain = request.session.get('login_id')
+            content_media = Addmission_details.objects.filter(connect=contain)
+        except Usermodel.DoesNotExist:
+            return HttpResponse("User profile not found for the current user", status=404)
+        return render(request, "college/addmission_view.html", {'data': content_media})
+
 
 class addmission_edit(View):
-    def get(self,request,id):
-        edit_addmission=Addmission_details.objects.get(pk=id)
-        return render(request,"college/addmission_edit.html",{'edited':edit_addmission})
-    def post(self,request,id):
-        Edited=Addmission_details.objects.get(pk=id)
-        edit_form = addmission_form(request.POST, instance=Edited)
+    def get(self, request, id):
+        edit_addmission = get_object_or_404(Addmission_details, pk=id)
+        return render(request, 'college/addmission_edit.html', {'edited': edit_addmission})
+
+    def post(self, request, id):
+        Edited = get_object_or_404(Addmission_details, pk=id)
+        edit_form = addmission_form(request.POST, request.FILES, instance=Edited)
         if edit_form.is_valid():
-            edit_form.save()
-            return HttpResponse("view_addmission")
+            data = edit_form.save(commit=False)
+            data.connect = Usermodel.objects.get(id=request.session['login_id'])
+            data.save()
+            messages.success(request, 'notification edited')
+            return redirect('view_addmission')
         return render(request,"college/addmission_edit.html",{'edited':Edited})
 
 class addmission_delete(View):
@@ -132,31 +176,65 @@ class addmission_delete(View):
 
 
 class document_add(View):
-    def get(self,request):
-        return render(request,"college/documents_add.html")
-    def post(self,request):
-        files = document_form(request.POST,request.FILES)
-        if files.is_valid():
-            files.save()
+    def get(self, request):
+        return render(request, 'college/documents_add.html')
+
+    def post(self, request):
+        if 'login_id' not in request.session:
+            messages.error(request, 'Session expired. Please log in again.')
+            return redirect('userapp:loginpages')
+        try:
+            print("session id ------------------------>", request.session['login_id'])
+            login = Usermodel.objects.get(id=request.session['login_id'])
+            print("login-------------------->", login)
+            college = collegemodel.objects.filter(user_pages_id=login)
+            print("college------------->", college)
+            if not college:
+                messages.error(request, 'You are not authorized to upload admissions')
+                return redirect('userapp:loginpages')
+        except Usermodel.DoesNotExist:
+            messages.error(request, 'Invalid session. Please log in again.')
+            return redirect('userapp:loginpages')
+        add = document_form(request.POST, request.FILES)
+        if add.is_valid():
+            all = add.save(commit=False)
+            all.lock = collegemodel.objects.get(user_pages_id=login)
+            all.connect = login
+            all.save()
+            messages.success(request, 'addmission successfully.')
             return redirect('document_view')
-        return render(request,"college/documents_add.html")
+        else:
+            messages.error(request, 'Unable . Please try again.')
+        return render(request, 'college/documents_add.html')
+
 
 class document_view(View):
-    def get(self,request):
-        document_file=addmission_documents.objects.all()
-        return render(request,"college/document_view.html",{'document':document_file})
+    def get(self, request):
+        try:
+            contain = request.session.get('login_id')
+            content_media = addmission_documents.objects.filter(connect=contain)
+        except Usermodel.DoesNotExist:
+            return HttpResponse("User profile not found for the current user", status=404)
+        return render(request, "college/document_view.html", {'document': content_media})
+
 
 class document_edit(View):
-    def get(self,request,id):
-        edit_document=addmission_documents.objects.get(pk=id)
-        return render(request,"college/document_edit.html",{'data':edit_document})
-    def post(self,request,id):
-        edited_document=addmission_documents.objects.get(pk=id)
-        edit_form=document_form(request.POST,request.FILES, instance=edited_document)
+    def get(self, request, id):
+        edit_document = get_object_or_404(addmission_documents, pk=id)
+        return render(request, 'college/document_edit.html', {'data': edit_document})
+
+    def post(self, request, id):
+        edited_document = get_object_or_404(addmission_documents, pk=id)
+        edit_form = document_form(request.POST, request.FILES, instance=edited_document)
         if edit_form.is_valid():
-            edit_form.save()
+            datas = edit_form.save(commit=False)
+            datas.connect = Usermodel.objects.get(id=request.session['login_id'])
+            datas.save()
+            messages.success(request, 'document edited')
             return redirect('document_view')
-        return render(request,"college/document_edit.html",{'data':edit_form})
+        return render(request,"college/document_view.html",{'edited':edited_document})
+
+
 
 class document_delete(View):
     def get(self,request,id):
@@ -170,32 +248,64 @@ class document_delete(View):
 
 
 class college_facilites(View):
-    def get(self,request):
-        facilites=facility_form()
-        return render(request,"college/facility_add.html")
-    def post(self,request):
-        college_facility=facility_form(request.POST,request.FILES)
-        if college_facility.is_valid():
-            college_facility.save()
+    def get(self, request):
+        return render(request, 'college/facility_add.html')
+
+    def post(self, request):
+        if 'login_id' not in request.session:
+            messages.error(request, 'Session expired. Please log in again.')
+            return redirect('userapp:loginpages')
+        try:
+            print("session id ------------------------>", request.session['login_id'])
+            login = Usermodel.objects.get(id=request.session['login_id'])
+            print("login-------------------->", login)
+            college = collegemodel.objects.filter(user_pages_id=login)
+            print("college------------->", college)
+            if not college:
+                messages.error(request, 'You are not authorized to upload admissions')
+                return redirect('userapp:loginpages')
+        except Usermodel.DoesNotExist:
+            messages.error(request, 'Invalid session. Please log in again.')
+            return redirect('userapp:loginpages')
+        add = facility_form(request.POST, request.FILES)
+        if add.is_valid():
+            all = add.save(commit=False)
+            all.lock = collegemodel.objects.get(user_pages_id=login)
+            all.connect = login
+            all.save()
+            messages.success(request, 'addmission successfully.')
             return redirect('view_facility')
-        return render(request,"college/facility_add.html")
+        else:
+            messages.error(request, 'Unable . Please try again.')
+        return render(request, 'college/facility_add.html')
+
 
 class facility_view(View):
     def get(self,request):
-        view_facility=Facility.objects.all
-        return render(request,"college/facility_view.html",{'data':view_facility})
+        try:
+            contain = request.session.get('login_id')
+            content_media = Facility.objects.filter(connect=contain)
+        except Usermodel.DoesNotExist:
+            return HttpResponse("User profile not found for the current user", status=404)
+        return render(request, "college/facility_view.html",{'data':content_media})
+
 
 class facility_editing(View):
-    def get(self,request,id):
-        edit_facility=Facility.objects.get(pk=id)
-        return render(request,"college/facility_edit.html",{'facility':edit_facility})
-    def post(self,request,id):
-        facility_edit=Facility.objects.get(pk=id)
-        form_facility=facility_form(request.POST,request.FILES, instance=facility_edit)
+    def get(self, request, id):
+        edit_facility = get_object_or_404(Facility, pk=id)
+        return render(request, 'college/facility_edit.html', {'facility': edit_facility})
+
+    def post(self, request, id):
+        facility_edit = get_object_or_404(Facility, pk=id)
+        form_facility = facility_form(request.POST, request.FILES, instance=facility_edit)
         if form_facility.is_valid():
-            form_facility.save()
-            return redirect('view_facility')
+            datas = form_facility.save(commit=False)
+            datas.connect = Usermodel.objects.get(id=request.session['login_id'])
+            datas.save()
+            messages.success(request, 'facility edited')
+        return redirect('view_facility')
         return render(request,"college/facility_edit.html",{'facility':form_facility})
+
 
 class facility_delt(View):
     def get(self,request,id):
@@ -218,21 +328,30 @@ class programme_add(View):
         return render(request,"college/prgrm_notification_add.html")
 
 class programme_view(View):
-    def get(self,request):
-        view_programme=programm_notification.objects.all
-        return render(request,"college/programme_view.html",{'details':view_programme})
+    def get(self, request):
+        try:
+            view_programme = request.session.get('login_id')
+            content_media = programm_notification.objects.filter(connect=view_programme)
+        except Usermodel.DoesNotExist:
+            return HttpResponse("User profile not found for the current user", status=404)
+        return render(request, "college/programme_view.html", {'details': content_media})
+
 
 class programme_edit(View):
-    def get(self,request,id):
-        edit_programme=programm_notification.objects.get(pk=id)
-        return render(request,"college/programme_edit.html",{'programme':edit_programme})
-    def post(self,request,id):
-        progarme_id=programm_notification.objects.get(pk=id)
-        programme_forms=programme_form(request.POST, instance=progarme_id)
-        if programme_forms.is_valid():
-            programme_forms.save()
-            return redirect('view_programme')
-        return render(request,"college/programme_edit.html" ,{'programme':programme_forms})
+            def get(self, request, id):
+                edit_programme = get_object_or_404(programm_notification, pk=id)
+                return render(request, 'college/programme_edit.html', {'programme': edit_programme})
+
+            def post(self, request, id):
+                progarme_id = get_object_or_404(programm_notification, pk=id)
+                programme_forms = programme_form(request.POST, request.FILES, instance=progarme_id)
+                if programme_forms.is_valid():
+                    datas = programme_forms.save(commit=False)
+                    datas.connect = Usermodel.objects.get(id=request.session['login_id'])
+                    datas.save()
+                    messages.success(request, 'programmes edited')
+                    return redirect('view_programme')
+                    return render(request,"college/programme_edit.html" ,{'programme':programme_forms})
 
 class programm_delt(View):
     def get(self,request,id):
@@ -249,9 +368,6 @@ class national_college(View):
     def get(self,request):
         return render(request,"college/National_university.html")
 
-class about(View):
-    def get(self,request):
-        return render(request,"college/about.html")
 
 class view_std(View):
     def get(self,request):
@@ -260,14 +376,14 @@ class view_std(View):
 
 class home(View):
     def get(self,request):
-        home_page=homeview.objects.all()
+        home_page=collegemodel.objects.all()
         return render(request,"college/college_home_view.html",{'data':home_page})
 
 class add(View):
     def get(self,request):
         return render(request,"college/college_home_add.html")
     def post(self,request):
-        add_home=homeform(request.POST,request.FILES)
+        add_home=collegeform(request.POST,request.FILES)
         if add_home.is_valid():
             add_home.save()
             return redirect('Home_view')
@@ -275,23 +391,28 @@ class add(View):
 
 class home_edit(View):
     def get(self,request,id):
-        home_edit = homeview.objects.get(pk=id)
-        return render(request,"college/college_home_edit.html",{'details':home_edit})
-    def post(self,request,id):
-        edit_home = homeview.objects.get(pk=id)
-        edit_form =homeform(request.POST,request.FILES,instance=edit_home)
-        if edit_form.is_valid():
-            edit_form.save()
-            return redirect('Home_view')
-        return render(request, "college/college_home_edit.html")
+        home_edit = get_object_or_404(collegemodel, pk=id)
+        return render(request, 'college/college_home_edit.html', {'details': home_edit})
+
+def post(self,request,id):
+    edit_home = get_object_or_404(collegemodel, pk=id)
+    edit_form =collegeform(request.POST,request.FILES,instance=edit_home)
+    if edit_form.is_valid():
+        datas = edit_form.save(commit=False)
+        datas.connect = Usermodel.objects.get(id=request.session['login_id'])
+        datas.save()
+        messages.success(request, 'homepage edited')
+        return redirect('Home_view')
+        return render(request, "college/college_home_edit.html", {'details': edit_form})
+
 
 class home_delt(View):
     def get(self,request,id):
-        delet_home = homeview.objects.get(pk=id)
+        delet_home = collegemodel.objects.get(pk=id)
         return render(request,"college/college_home_delet.html")
 
     def post(self, request, id):
-        delet_card = homeview.objects.get(pk=id)
+        delet_card = collegemodel.objects.get(pk=id)
         delet_card.delete()
         return redirect('Home_view')
 
@@ -300,24 +421,116 @@ class college_home(View):
     def get(self,request):
        return render(request,"college/college_page.html")
 
-class vacancy_view(View):
+class add_vacancy(View):
     def get(self,request):
-        view = collegemodel.objects.all()
-        return render(request,"student/vacancy_view.html",{'data':view})
+        return render(request,"college/course_vacancy.html")
+    def post(self, request):
+        if 'login_id' not in request.session:
+            messages.error(request, 'Session expired. Please log in again.')
+            return redirect('userapp:loginpages')
+        try:
+            print("session id ------------------------>", request.session['login_id'])
+            login = Usermodel.objects.get(id=request.session['login_id'])
+            print("login-------------------->", login)
+            college = collegemodel.objects.filter(user_pages_id=login)
+            print("college------------->", college)
+            if not college:
+                messages.error(request, 'You are not authorized to upload notification')
+                return redirect('userapp:loginpages')
+        except Usermodel.DoesNotExist:
+            messages.error(request, 'Invalid session. Please log in again.')
+            return redirect('userapp:loginpages')
+        vacancy = vacancy_form(request.POST, request.FILES)
+        if vacancy.is_valid():
+            c = vacancy.save(commit=False)
+            c.lock = collegemodel.objects.get(user_pages_id=login)
+            c.connect = login
+            c.save()
+            messages.success(request, 'vacancy successfully.')
+            return redirect('college:vacancy_course')
+        else:
+            messages.error(request, 'Unable . Please try again.')
+        return render(request, 'college/course_vacancy.html')
 
-class vacancy(View):
-    def get(self,request):
-        return render(request,"college/course_vacancy.html")
-    def post(self,request):
-        vacancy_add=vacancy_form(request.POST)
-        if vacancy_add.is_valid():
-            vacancy_add.save()
-            return HttpResponse('ADD')
-        return render(request,"college/course_vacancy.html")
 
 class view_coure(View):
+    def get(self, request):
+        try:
+            view_coure = request.session.get('login_id')
+            content_media = vacancy.objects.filter(connect=view_coure)
+        except Usermodel.DoesNotExist:
+            return HttpResponse("User profile not found for the current user", status=404)
+        return render(request, "college/cours_view.html", {'vacancys': content_media})
+
+
+class vacancy_edit(View):
+    def get(self,request,id):
+        edit_vacany = get_object_or_404(vacancy, pk=id)
+        return render(request, 'college/edit_vacancy.html', {'editing': edit_vacany})
+
+    def post(self, request, id):
+        vacancy_edite = get_object_or_404(vacancy, pk=id)
+        form_vacancy = vacancy_form(request.POST, request.FILES, instance=vacancy_edite)
+        if form_vacancy.is_valid():
+            edited = form_vacancy.save(commit=False)
+            edited.connect = Usermodel.objects.get(id=request.session['login_id'])
+            edited.save()
+            messages.success(request, 'vacancy edited')
+            return redirect('college:vacancy_course')
+            return render(request, "college/edit_vacancy.html", {'editing': form_vacancy})
+
+class VacancyDeleteView(View):
+    def get(self, request, id):
+        vacancy_to_delete = get_object_or_404(vacancy, pk=id)
+        return render(request, "college/delet_vacancy.html")
+
+    def post(self, request, id):
+        vacancy_to_delete = get_object_or_404(vacancy, pk=id)
+        vacancy_to_delete.delete()
+        return redirect('college:vacancy_course')
+    
+
+class about_add(View):
     def get(self,request):
-        return render(request,"college/cours_view.html")
+        return render(request,"college/about.html")
+    def post(self, request):
+        if 'login_id' not in request.session:
+            messages.error(request, 'Session expired. Please log in again.')
+            return redirect('userapp:loginpages')
+        try:
+            print("session id ------------------------>", request.session['login_id'])
+            login = Usermodel.objects.get(id=request.session['login_id'])
+            print("login-------------------->", login)
+            college = collegemodel.objects.filter(user_pages_id=login)
+            print("college------------->", college)
+            if not college:
+                messages.error(request, 'You are not authorized to upload discripition')
+                return redirect('userapp:loginpages')
+        except Usermodel.DoesNotExist:
+            messages.error(request, 'Invalid session. Please log in again.')
+            return redirect('userapp:loginpages')
+        about = about_form(request.POST, request.FILES)
+
+        if about.is_valid():
+            c = about.save(commit=False)
+            c.lock = collegemodel.objects.get(user_pages_id=login)
+            c.connect = login
+            c.save()
+            messages.success(request, 'details successfully.')
+            return HttpResponse('send')
+        else:
+            messages.error(request, 'Unable . Please try again.')
+        return render(request, 'college/about.html')
+
+
+
+
+
+
+
+
+
+
 
 
 

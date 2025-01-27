@@ -6,66 +6,194 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Facility Form</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #f4f4f9;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-        }
+body {
+    font-family: 'Roboto', sans-serif;
+    margin: 0;
+    padding: 0;
+    background: linear-gradient(to bottom right, #8e9eab, #eef2f3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    overflow: hidden;
+    color: #333;
+}
 
-        .facility {
-            background-color: #6fa8e6;
-            padding: 20px 30px;
-            border-radius: 8px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            width: 100%;
-            max-width: 400px;
-        }
+h1 {
+    font-size: 34px;
+    color: white;
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
 
-        .facility label {
-            display: block;
-            font-weight: bold;
-            margin-bottom: 5px;
-            color: #333;
-        }
+.facility {
+    background: linear-gradient(135deg, #ffffff, #f0f0f0);
+    border-radius: 20px;
+    padding: 30px 40px;
+    width: 100%;
+    max-width: 450px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+    animation: bounceIn 0.7s ease-out;
+    position: relative;
+}
 
-        .facility input[type="text"],
-        .facility input[type="file"] {
-            width: 100%;
-            padding: 10px;
-            margin-bottom: 15px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            font-size: 14px;
-        }
+.facility:before {
+    content: '';
+    position: absolute;
+    top: -60px;
+    right: -60px;
+    width: 150px;
+    height: 150px;
+    background: linear-gradient(135deg, #8e9eab, #eef2f3);
+    border-radius: 50%;
+    opacity: 0.5;
+    z-index: -1;
+    animation: rotateEffect 15s linear infinite;
+}
 
-        .facility button {
-            background-color: #007bff;
-            color: white;
-            padding: 10px 15px;
-            border: none;
-            border-radius: 4px;
-            font-size: 16px;
-            cursor: pointer;
-            width: 100%;
-        }
+.facility label {
+    display: block;
+    font-size: 16px;
+    font-weight: bold;
+    color: #555;
+    margin-bottom: 10px;
+    transition: color 0.3s ease;
+}
 
-        .facility button:hover {
-            background-color: #0056b3;
-        }
+.facility input[type="text"],
+.facility input[type="file"] {
+    width: 100%;
+    padding: 12px 15px;
+    margin-bottom: 20px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 14px;
+    background: #f9f9f9;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
 
-        .facility input:focus {
-            outline: none;
-            border-color: #007bff;
-            box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
-        }
+.facility input[type="text"]:hover,
+.facility input[type="file"]:hover {
+    border-color: #007bff;
+    box-shadow: 0 4px 8px rgba(0, 123, 255, 0.2);
+}
+
+.facility input:focus {
+    border-color: #007bff;
+    box-shadow: 0 0 10px rgba(0, 123, 255, 0.5);
+    outline: none;
+    background: #fff;
+}
+
+.facility input[type="file"]::-webkit-file-upload-button {
+    background-color: #007bff;
+    color: white;
+    padding: 8px 16px;
+    border: none;
+    border-radius: 5px;
+    font-size: 14px;
+    font-weight: bold;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.facility input[type="file"]::-webkit-file-upload-button:hover {
+    background-color: #0056b3;
+    transform: scale(1.05);
+}
+
+.facility button {
+    display: block;
+    width: 100%;
+    padding: 14px 20px;
+    background: linear-gradient(to right, #6a11cb, #2575fc);
+    color: white;
+    border: none;
+    border-radius: 25px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    text-transform: uppercase;
+    transition: all 0.4s ease;
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+}
+
+.facility button:hover {
+    background: linear-gradient(to right, #2575fc, #6a11cb);
+    box-shadow: 0 12px 20px rgba(0, 0, 0, 0.3);
+    transform: translateY(-3px);
+}
+
+.facility button:active {
+    background: linear-gradient(to right, #0056b3, #6a11cb);
+    box-shadow: none;
+    transform: translateY(0);
+}
+
+.facility label:hover {
+    color: #007bff;
+    cursor: pointer;
+}
+
+.facility input::placeholder {
+    color: #999;
+    font-style: italic;
+    font-size: 14px;
+}
+
+.facility-tooltip {
+    display: block;
+    font-size: 12px;
+    color: #888;
+    margin-top: -10px;
+    margin-bottom: 10px;
+    text-align: right;
+    font-style: italic;
+}
+
+@keyframes bounceIn {
+    0% {
+        transform: translateY(-20px);
+        opacity: 0;
+    }
+    100% {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+@keyframes rotateEffect {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+@media (max-width: 600px) {
+    .facility {
+        padding: 20px 25px;
+    }
+
+    h1 {
+        font-size: 26px;
+    }
+
+    .facility button {
+        font-size: 14px;
+        padding: 12px 18px;
+    }
+}
+
+
     </style>
 </head>
 <body>
+<h1>College Facilityes</h1>
     <div class="facility">
         <form method="post" enctype="multipart/form-data">
              {% csrf_token %}

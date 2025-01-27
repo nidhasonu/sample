@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+{% for data in riplys %}
+ <table>
+            <tr>
+                <th>Complaint</th>
+                <td>{{ data.complaint_text }}</td>
+            </tr>
+            <tr>
+                <th>riply</th>
+                <td>{{ data.reply }}</td>
+            </tr>
+ </table>
+</body>
+</html>

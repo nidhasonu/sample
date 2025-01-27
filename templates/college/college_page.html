@@ -20,7 +20,7 @@
             color: #1a73e8;
         }
 
-        @media screen and (max-width: 768px) {
+        @media screen and (max-width: 425px) {
         .navbar {
             flex-direction: column;
             align-items: flex-start;
@@ -122,43 +122,60 @@
             font-size: 18px;
             color: white;
         }
+        .log{
+            height: 40px;
+           margin-left:1200px;
+            z-index: -2;
+            margin-top: 80px;
+        }
     </style>
 </head>
 <body>
+
     <nav>
         <ul>
+            <li class="dpdwn"><a href="{% url 'college:abouts' %}">About</a>
+
+            </li>
+
             <li class="dpdwn"><a href="#">Admission Papers</a>
                 <ul>
-                    <li><a href="{% url 'add_addmission' %}">Add</a></li>
-                    <li><a href="{% url 'view_addmission' %}">Manage</a></li>
+                    <li><a href="{% url 'college:add_addmission' %}">Add</a></li>
+                    <li><a href="{% url 'college:view_addmission' %}">Manage</a></li>
                 </ul>
             </li>
             <li class="dpdwn"><a href="#">Admission Documents</a>
                 <ul>
-                    <li><a href="{% url 'add_document' %}">Add</a></li>
-                    <li><a href="{% url 'document_view' %}">Manage</a></li>
+                    <li><a href="{% url 'college:add_document' %}">Add</a></li>
+                    <li><a href="{% url 'college:document_view' %}">Manage</a></li>
                 </ul>
             </li>
             <li class="dpdwn"><a href="#">Exam Notifications</a>
                 <ul>
-                    <li><a href="#">Add</a></li>
-                    <li><a href="{% url 'notification_view' %}">Manage</a></li>
+                    <li><a href="{% url 'college:college_notification' %}">Add</a></li>
+                    <li><a href="{% url 'college:notification_view' %}">Manage</a></li>
                 </ul>
             </li>
             <li class="dpdwn"><a href="#">Facility</a>
                 <ul>
-                    <li><a href="{% url 'facility_add' %}">Add</a></li>
-                    <li><a href="{% url 'view_facility' %}">Manage</a></li>
+                    <li><a href="{% url 'college:facility_add' %}">Add</a></li>
+                    <li><a href="{% url 'college:view_facility' %}">Manage</a></li>
                 </ul>
             </li>
             <li class="dpdwn"><a href="#">Programme Notifications</a>
                 <ul>
-                    <li><a href="{% url 'add_programme' %}">Add</a></li>
-                    <li><a href="{% url 'view_programme' %}">Manage</a></li>
+                    <li><a href="{% url 'college:add_programme' %}">Add</a></li>
+                    <li><a href="{% url 'college:view_programme' %}">Manage</a></li>
                 </ul>
             </li>
-            <li><a href="{% url 'view_student' %}">Students</a></li>
-            <li><a href="#">Requests</a></li>
+             <li class="dpdwn"><a href="#">Vacancy</a>
+                <ul>
+                    <li><a href="{% url 'college:add_vacancy' %}">Add</a></li>
+                    <li><a href="{% url 'college:vacancy_course' %}">Manage</a></li>
+                </ul>
+            </li>
+            <li><a href="{% url 'college:view_student' %}">Students</a></li>
+            <li><a href="">Requests</a></li>
         </ul>
     </nav>
 

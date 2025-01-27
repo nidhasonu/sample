@@ -2,122 +2,174 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Document Upload</title>
     <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f0f2f5;
+            color: #333;
+            margin: 0;
+            padding: 50px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
 
-body {
-    font-family: Arial, sans-serif;
-    margin: 20px;
-    background-color: #f9f9f9;
-    color: #333;
-}
+        h1 {
+            text-align: center;
+            font-size: 36px;
+            color: #2f3542;
+            margin-bottom: 30px;
+        }
 
+        .form-container {
+            background-color: #fff;
+            border-radius: 10px;
+            padding: 40px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 600px;
+            transition: box-shadow 0.3s ease-in-out;
+        }
 
-table {
-    width: 100%;
-    max-width: 600px;
-    margin: 20px auto;
-    border-collapse: collapse;
-    background-color: #fff;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    border-radius: 5px;
-    overflow: hidden;
-}
+        .form-container:hover {
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+        }
 
-table th, table td {
-    padding: 15px;
-    text-align: left;
-    border-bottom: 1px solid #ddd;
-}
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
 
-table th {
-    background-color: #f4f4f4;
-    font-weight: bold;
-    text-transform: capitalize;
-}
+        table th, table td {
+            padding: 15px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
 
-table tr:last-child td {
-    border-bottom: none;
-}
+        table th {
+            background-color: #3c8dbc;
+            color: white;
+            font-weight: bold;
+            font-size: 16px;
+        }
 
-table input[type="file"] {
-    width: 100%;
-    padding: 10px;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-    font-size: 14px;
-    box-sizing: border-box;
-    margin-top: 5px;
-}
+        table td {
+            background-color: #f9f9f9;
+        }
 
+        label {
+            font-size: 14px;
+            color: #555;
+        }
 
-input[type="submit"] {
-    display: block;
-    width: 100%;
-    max-width: 600px;
-    margin: 20px auto;
-    padding: 10px 15px;
-    background-color: #4CAF50;
-    color: white;
-    font-size: 16px;
-    font-weight: bold;
-    text-transform: uppercase;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-}
+        input[type="file"] {
+            width: 100%;
+            padding: 14px;
+            border-radius: 8px;
+            border: 2px solid #ccc;
+            font-size: 16px;
+            margin-top: 10px;
+            transition: border-color 0.3s ease;
+        }
 
-input[type="submit"]:hover {
-    background-color: #45a049;
-}
+        input[type="file"]:focus {
+            border-color: #3c8dbc;
+            outline: none;
+        }
 
+        input[type="submit"] {
+            padding: 15px 20px;
+            background-color: #3c8dbc;
+            color: white;
+            font-size: 18px;
+            font-weight: bold;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            width: 100%;
+            margin-top: 20px;
+        }
 
-@media (max-width: 600px) {
-    table {
-        width: 90%;
-    }
+        input[type="submit"]:hover {
+            background-color: #2f6f99;
+        }
 
-    table th, table td {
-        font-size: 14px;
-    }
+        input[type="submit"]:active {
+            background-color: #1f567a;
+        }
 
-    input[type="file"], input[type="submit"] {
-        font-size: 14px;
-       
-    }
-}
+        .form-footer {
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        .form-footer a {
+            text-decoration: none;
+            color: #3c8dbc;
+            font-size: 14px;
+        }
+
+        .form-footer a:hover {
+            text-decoration: underline;
+        }
+
+        @media (max-width: 600px) {
+            .form-container {
+                padding: 20px;
+            }
+
+            input[type="file"], input[type="submit"] {
+                font-size: 14px;
+            }
+
+            table th, table td {
+                padding: 12px;
+            }
+        }
 
     </style>
 </head>
 <body>
-<form method="post" enctype="multipart/form-data">
-     {% csrf_token %}
-<table border="1px">
-    <tr>
-        <th><label for="id_Sslc_certificate">Sslc_certificate</label></th>
-        <td><input type="file" name="Sslc_certificate"></td>
-    </tr>
-    <tr><th><label for="id_Plustwo_certificate">Plustwo_certificate</label></th>
-        <td><input type="file" name="Plustwo_certificate"></td>
-    </tr>
-    <tr>
-        <th><label for="id_ID_card">ID_card</label></th>
-        <td><input type="file" name="ID_card"></td>
 
-    </tr>
-    <tr>
-        <th><label for="id_TC">TC</label></th>
-        <td><input type="file" name="TC"></td>
-    </tr>
-    <tr>
-        <th><label for="id_CC">CC</label></th>
-        <td><input type="file" name="CC"></td>
-    </tr>
+    <div class="form-container">
+        <h1>Upload Documents</h1>
 
-</table>
-     <input type="submit" value="Submit">
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <table>
+                <tr>
+                    <th><label for="Sslc_certificate">SSLC Certificate</label></th>
+                    <td><input type="file" name="Sslc_certificate" id="Sslc_certificate" required></td>
+                </tr>
+                <tr>
+                    <th><label for="Plustwo_certificate">Plus Two Certificate</label></th>
+                    <td><input type="file" name="Plustwo_certificate" id="Plustwo_certificate" required></td>
+                </tr>
+                <tr>
+                    <th><label for="ID_card">ID Card</label></th>
+                    <td><input type="file" name="ID_card" id="ID_card" required></td>
+                </tr>
+                <tr>
+                    <th><label for="TC">Transfer Certificate</label></th>
+                    <td><input type="file" name="TC" id="TC" required></td>
+                </tr>
+                <tr>
+                    <th><label for="CC">Character Certificate</label></th>
+                    <td><input type="file" name="CC" id="CC" required></td>
+                </tr>
+            </table>
 
-</form>
+            <input type="submit" value="Submit">
+        </form>
+
+        <div class="form-footer">
+            <p>By submitting, you agree to our <a href="#">terms and conditions</a>.</p>
+        </div>
+    </div>
+
 </body>
 </html>

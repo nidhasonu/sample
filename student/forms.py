@@ -22,5 +22,14 @@ class SeatTransferRequestForm(forms.ModelForm):
         fields = ['college', 'program', 'request_type', 'reason']
 
 
+class ComplaintForm(forms.ModelForm):
+    class Meta:
+        model = Complaint
+        fields = ['complaint_text']
+        widgets = {
+            'complaint_text': forms.Textarea(attrs={'rows': 4, 'cols': 40}),
+        }
+
+
 
 

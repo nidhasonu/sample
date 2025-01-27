@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Submit Review</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(120deg, #84fab0, #8fd3f4);
+            color: #333;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+        .review-container {
+            background: #fff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+            width: 80%;
+            max-width: 600px;
+            text-align: left;
+        }
+        h1 {
+            margin-bottom: 20px;
+            font-size: 2rem;
+            color: #2c3e50;
+        }
+        .star-rating {
+            display: flex;
+            flex-direction: row-reverse;
+            justify-content: flex-start;
+            font-size: 2rem;
+            gap: 10px;
+        }
+        .star-rating input {
+            display: none;
+        }
+        .star-rating label {
+            color: #e0e0e0;
+            cursor: pointer;
+            transition: color 0.3s, transform 0.2s;
+        }
+        .star-rating input:checked ~ label,
+        .star-rating label:hover,
+        .star-rating label:hover ~ label {
+            color: #ffd700;
+            transform: scale(1.2);
+        }
+        textarea {
+            width: 100%;
+            padding: 15px;
+            margin-top: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            background: #f9f9f9;
+            font-size: 1rem;
+            color: #555;
+            resize: none;
+        }
+        button {
+            background: #3498db;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            margin-top: 20px;
+            font-size: 1rem;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+        button:hover {
+            background: #2980b9;
+        }
+        button:active {
+            background: #1f618d;
+        }
+    </style>
+</head>
+<body>
+    <div class="review-container">
+        <h1>Submit Review</h1>
+        <form method="post">
+            {% csrf_token %}
+            <div class="star-rating">
+                <input type="radio" name="rating" value="5" id="star5">
+                <label for="star5">&#9733;</label>
+                <input type="radio" name="rating" value="4" id="star4">
+                <label for="star4">&#9733;</label>
+                <input type="radio" name="rating" value="3" id="star3">
+                <label for="star3">&#9733;</label>
+                <input type="radio" name="rating" value="2" id="star2">
+                <label for="star2">&#9733;</label>
+                <input type="radio" name="rating" value="1" id="star1">
+                <label for="star1">&#9733;</label>
+            </div>
+            <textarea name="comment" rows="4" placeholder="Write your review..."></textarea>
+            <button type="submit">Submit</button>
+        </form>
+    </div>
+</body>
+</html>

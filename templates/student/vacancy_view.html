@@ -24,8 +24,8 @@
                 {% endif %}
                 <div class="card-body">
                     <h5 class="card-title">{{ details.college_name }}</h5>
-                    <p class="card-text">{{ details.Address|default:"Location not specified" }}</p>
-                    <a href="{{  details.id }}" class="btn btn-primary">View</a>
+                    <p class="card-text">{{ details.City|default:"Location not specified" }}</p>
+                    <a href="{% url 'student:viewcollege' details.id %}" class="btn btn-primary">View</a>
                 </div>
             </div>
         </div>

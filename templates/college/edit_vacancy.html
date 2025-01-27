@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+          body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #4caf50, #81c784);
+            color: #333;
+        }
+
+        .form-container {
+            width: 100%;
+            max-width: 600px;
+            background: #ffffff;
+            padding: 30px 40px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            box-sizing: border-box;
+        }
+
+        h2 {
+            text-align: center;
+            font-size: 28px;
+            color: #2c3e50;
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 5px;
+            color: #444;
+        }
+
+        input[type="text"], input[type="date"], input[type="file"] {
+            width: 100%;
+            padding: 10px 12px;
+            margin-bottom: 15px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 16px;
+            box-sizing: border-box;
+        }
+
+        input[type="text"]:focus, input[type="date"]:focus, input[type="file"]:focus {
+            border-color: #4CAF50;
+            box-shadow: 0 0 5px rgba(76, 175, 80, 0.5);
+            outline: none;
+        }
+
+        button[type="submit"] {
+            width: 100%;
+            padding: 12px;
+            font-size: 18px;
+            font-weight: bold;
+            color: white;
+            background-color: #4caf50;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        button[type="submit"]:hover {
+            background-color: #388e3c;
+        }
+
+        @media (max-width: 600px) {
+            .form-container {
+                padding: 20px;
+            }
+
+            h2 {
+                font-size: 22px;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="form-container">
+    <h2>Edit College vacancy</h2>
+    <form method="POST" class="edit">
+        {% csrf_token %}
+        <label for="id_Programme">Department</label>
+        <input type="text" id="id_Programme" name="Programme" value="{{ editing.Programme }}">
+
+        <label for="id_Totel_Seat">TOTEL SEAT</label>
+        <input type="number" id="id_Totel_Seat" name="Totel_Seat" value="{{ editing.Totel_Seat }}">
+
+        <label for="id_Availbale_Seat">AVAILABLE SEAT</label>
+        <input type="number" id="id_Availbale_Seat" name="Availbale_Seat" value="{{ editing.Availbale_Seat }}">
+
+        <label for="id_Dead_line">DEAD LINE</label>
+        <input type="date" id="id_Dead_line" name="Dead_line" value="{{ editing.Dead_line }}">
+
+         <button type="submit">Save</button>
+    </form>
+</div>
+
+</body>
+</html>

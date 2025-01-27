@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+     
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f4f4f9;
+        margin: 0;
+        padding: 20px;
+    }
+
+    .complaint-reply-container {
+        max-width: 800px;
+        margin: 0 auto;
+        background: #fff;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    h1 {
+        text-align: center;
+        color: #333;
+        margin-bottom: 20px;
+    }
+
+    .reply-card {
+        margin-bottom: 20px;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        overflow: hidden;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    .reply-card table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+    .reply-card th, .reply-card td {
+        padding: 10px;
+        text-align: left;
+    }
+
+    .reply-card th {
+        background-color: #f0f0f0;
+        color: #333;
+    }
+
+    .reply-card tr:nth-child(even) {
+        background-color: #f9f9f9;
+    }
+
+    .reply-card tr:hover {
+        background-color: #f1f1f1;
+    }
+
+    .reply-card p {
+        margin: 0;
+    }
+
+    </style>
+</head>
+<body>
+
+
+
+  <h2>Reply to Complaint</h2>
+  <form method="post">
+    {% csrf_token %}
+    <textarea name="reply" rows="4" cols="40" placeholder="Write your reply here..."></textarea><br><br>
+    <button type="submit">Send Reply</button>
+  </form>
+
+
+
+</body>
+</html>

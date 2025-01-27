@@ -3,74 +3,136 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us - Our College</title>
     <style>
-/* General Reset */
-body {
-    margin: 0;
-    padding: 0;
-    font-family: 'Arial', sans-serif;
-    background: linear-gradient(135deg, #f3f9ff, #d6e4f5);
-    color: #333;
-    line-height: 1.6;
-}
-
-/* Heading Styling */
-h1 {
-    text-align: center;
-    font-size: 36px;
-    font-weight: bold;
-    color: #0056b3;
-    margin-top: 40px;
-    text-transform: uppercase;
-    letter-spacing: 1.5px;
-}
-
-/* Paragraph Styling */
-p {
-    max-width: 800px;
-    margin: 20px auto;
-    padding: 20px;
-    background: #ffffff;
-    border-radius: 8px;
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
-    font-size: 18px;
-    color: #555;
-    text-align: justify;
-    line-height: 1.8;
-}
-
-/* Highlight Key Elements */
-p strong {
-    color: #ff5733;
-    font-weight: bold;
-}
-
-p br {
-    margin-bottom: 10px;
-    display: block;
-    line-height: 1.5;
-}
-
-/* Responsive Design */
-@media (max-width: 768px) {
-    h1 {
-        font-size: 28px;
-    }
-
-    p {
-        font-size: 16px;
-        padding: 15px;
-    }
-}
-
+        body {
+            font-family: 'Arial', sans-serif;
+            background: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+        .header {
+            background: #0056b3;
+            color: white;
+            padding: 40px;
+            text-align: center;
+        }
+        .container {
+            max-width: 1100px;
+            margin: 30px auto;
+            padding: 20px;
+        }
+        .section {
+            padding: 20px;
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            padding: 10px;
+            text-align: left;
+        }
+        th {
+            background-color: #f0f0f0;
+        }
+        input[type="text"], input[type="file"] {
+            width: 100%;
+            padding: 8px;
+            margin: 5px 0;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        input[type="submit"] {
+            background-color: #0056b3;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            width: 100%;
+        }
+        input[type="submit"]:hover {
+            background-color: #00408d;
+        }
+        footer {
+            text-align: center;
+            padding: 20px;
+            background: #0056b3;
+            color: white;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
     </style>
 </head>
 <body>
-<h1>About</h1>
-<p>National  College, founded in 1999, is managed by "BODHI NIKETAN TRUST", formed by the members of St. Joseph Province of the Carmelites of Mary Immaculate (CMI).<br>
 
-    The institution strives to fulfill its mission to provide educational <br>opportunities for all aspiring young people to excel in life by developing academic excellence,<br> fostering values, creating civic responsibility, inculcating environmental concern and building global competencies in a dynamic environment.
-    
-   </body>
+<header class="header">
+    <h1>About Our College</h1>
+    <p>Share your college details below</p>
+</header>
+
+<div class="container">
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="section">
+            <h2>College Description</h2>
+            <table>
+                <tr>
+                    <th><label for="description">Description</label></th>
+                    <td><input type="text" id="description" name="description" required></td>
+                <tr>
+                    <th><label for="teamimg1">Team Member 1 Image</label></th>
+                    <td><input type="file" id="teamimg1" name="teamimg1" accept="image/" required></td>
+                </tr>
+                <tr>
+                    <th><label for="teammember1">Team Member 1 Name</label></th>
+                    <td><input type="text" id="teammember1" name="teammember1" required></td>
+                </tr>
+                <tr>
+                    <th><label for="teamimg2">Team Member 2 Image</label></th>
+                    <td><input type="file" id="teamimg2" name="teamimg2" accept="image/" required></td>
+                </tr>
+                <tr>
+                    <th><label for="teammember2">Team Member 2 Name</label></th>
+                    <td><input type="text" id="teammember2" name="teammember2" required></td>
+                </tr>
+            </table>
+        </div>
+
+        <div class="section">
+            <h2>Campus Images</h2>
+            <table>
+                <tr>
+                    <th><label for="camimg1">Campus Image 1</label></th>
+                    <td><input type="file" id="camimg1" name="camimg1" accept="image/" required></td>
+                </tr>
+                <tr>
+                    <th><label for="camimg2">Campus Image 2</label></th>
+                    <td><input type="file" id="camimg2" name="camimg2" accept="image/" required></td>
+                </tr>
+                <tr>
+                    <th><label for="camimg3">Campus Image 3</label></th>
+                    <td><input type="file" id="camimg3" name="camimg3" accept="image/" required></td>
+                </tr>
+            </table>
+        </div>
+
+        <div class="section">
+            <input type="submit" value="Submit">
+        </div>
+    </form>
+</div>
+
+<footer>
+    &copy; 2025 Our College. All Rights Reserved.
+</footer>
+
+</body>
 </html>

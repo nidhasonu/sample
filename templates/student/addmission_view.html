@@ -1,70 +1,113 @@
-{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admission Details</title>
+    <title>Admission Details and Documents</title>
     <style>
         body {
             font-family: Arial, sans-serif;
-            margin: 20px;
             background-color: #f4f4f9;
+            margin: 20px;
         }
 
         table {
             width: 80%;
             margin: 20px auto;
             border-collapse: collapse;
-            background-color: #ffffff;
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            background-color: #fff;
         }
 
         th, td {
             padding: 12px 20px;
-            text-align: left;
             border: 1px solid #ddd;
         }
 
         th {
             background-color: cadetblue;
             color: white;
-            font-weight: bold;
         }
 
         td {
             color: #333;
         }
 
-        label {
-            font-weight: bold;
+        h2 {
+            text-align: center;
+        }
+
+        a.btn {
+            display: inline-block;
+            padding: 10px 15px;
+            background-color: #4CAF50;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+
+        a.btn:hover {
+            background-color: #45a049;
         }
     </style>
 </head>
 <body>
-    {% for addmission in data %}
+    <h1>{{ college.name }} - Admission Information</h1>
+
+    <h2>Admission Details</h2>
+    {% if admission_details %}
     <table>
+        {% for admission in admission_details %}
+       
         <tr>
-            <th><label>College Name</label></th>
-            <td>{{ addmission.college_name }}</td>
+            <th>Eligibility</th>
+            <td>{{ admission.Eligibility }}</td>
         </tr>
         <tr>
-            <th><label>Eligibility</label></th>
-            <td>{{ addmission.Eligibility }}</td>
+            <th>Subject</th>
+            <td>{{ admission.Subject }}</td>
         </tr>
         <tr>
-            <th><label>Subject</label></th>
-            <td>{{ addmission.Subject }}</td>
+            <th>Admission Start Date</th>
+            <td>{{ admission.Addmission_start_date }}</td>
         </tr>
         <tr>
-            <th><label>Admission Start Date</label></th>
-            <td>{{ addmission.Addmission_start_date }}</td>
+            <th>Admission End Date</th>
+            <td>{{ admission.Addmission_end_date }}</td>
         </tr>
-        <tr>
-            <th><label>Admission End Date</label></th>
-            <td>{{ addmission.Addmission_end_date }}</td>
-        </tr>
+        {% endfor %}
     </table>
-    {% endfor %}
+    {% else %}
+    <p>No admission details available.</p>
+    {% endif %}
+
+    <h2>Admission Documents</h2>
+    <table>
+      
+        <tr>
+            <th>SSLC Certificate</th>
+        
+        </tr>
+        <tr>
+            <th>Plus Two Certificate</th>
+            
+        </tr>
+        <tr>
+            <th>ID Card</th>
+           
+        </tr>
+        <tr>
+            <th>Transfer Certificate (TC)</th>
+            
+        </tr>
+        <tr>
+            <th>Conduct Certificate (CC)</th>
+           
+        </tr>
+       
+    </table>
+
+   
+
 </body>
 </html>

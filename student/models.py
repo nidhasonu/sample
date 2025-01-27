@@ -78,12 +78,34 @@ class College(models.Model):
     description = models.TextField()
 
 
-class Review(models.Model):
-    college = models.ForeignKey(collegemodel, on_delete=models.CASCADE, related_name='reviews')
+class review(models.Model):
     user = models.ForeignKey(Usermodel, on_delete=models.CASCADE)
-    rating = models.IntegerField(choices=[(i, i) for i in range(1, 6)])
-    review_text = models.TextField()
+    rating = models.PositiveIntegerField(default=0)
+    comment = models.TextField(blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
+
+    def _str_(self):
+        return f"Feedback from {self.user.username}"
+
+class Complaint(models.Model):
+    sender = models.ForeignKey(Usermodel, on_delete=models.CASCADE, blank=True, null=True)
+    complaint_text = models.TextField(max_length=1000, null=True, blank=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    reply = models.TextField(null=True, blank=True)
+    status = models.CharField(max_length=20, choices=[
+            ('pending', 'Pending'),
+            ('resolved', 'Resolved'),
+            ('under_review', 'Under Review'),
+            ('closed', 'Closed'),
+        ], default='pending')
+
+    def _str_(self):
+        return f"{self.sender.username}"
+
+
+
+
+
 
 
 

@@ -3,144 +3,252 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document View</title>
     <style>
+        /* Global styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin: 20px 0;
-    font-size: 16px;
-    text-align: left;
-}
+        body {
+            font-family: 'Roboto', sans-serif;
+            background: #f4f6f9;
+            display: flex;
+            min-height: 100vh;
+            flex-direction: row;
+            padding: 20px;
+        }
 
-table th, table td {
-    padding: 12px;
-    border: 1px solid #ddd;
-}
+        .sidebar {
+            width: 250px;
+            background-color: #2c3e50;
+            color: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            margin-right: 20px;
+        }
 
-table th {
-    background-color: #f4f4f4;
-    color: #333;
-    font-weight: bold;
-}
+        .sidebar h2 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
 
-table tr:nth-child(even) {
-    background-color: #f9f9f9;
-}
+        .sidebar a {
+            color: white;
+            text-decoration: none;
+            font-size: 16px;
+            padding: 12px 0;
+            display: block;
+            text-align: center;
+            margin: 10px 0;
+            border-radius: 8px;
+            transition: background-color 0.3s ease;
+        }
 
-table tr:hover {
-    background-color: #f1f1f1;
-}
+        .sidebar a:hover {
+            background-color: #34495e;
+        }
 
-td a {
-    color: #0066cc;
-    text-decoration: none;
-}
+        .container {
+            flex-grow: 1;
+            background-color: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
 
-td a:hover {
-    text-decoration: underline;
-}
+        h1 {
+            font-size: 28px;
+            color: #2c3e50;
+            margin-bottom: 20px;
+            text-align: center;
+        }
 
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
 
-button {
-    background-color: #4CAF50;
-    color: white;
-    border: none;
-    padding: 10px 20px;
-    margin: 5px;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 14px;
-}
+        th, td {
+            padding: 15px;
+            border: 1px solid #ecf0f1;
+            font-size: 16px;
+        }
 
-button a {
-    color: white;
-    text-decoration: none;
-}
+        th {
+            background-color: #2980b9;
+            color: white;
+            font-weight: bold;
+        }
 
-button:hover {
-    background-color: #45a049;
-}
+        tr:nth-child(even) td {
+            background-color: #f9f9f9;
+        }
 
-button:active {
-    background-color: #3e8e41;
-    transform: translateY(2px);
-}
+        tr:hover td {
+            background-color: #f1f1f1;
+        }
+
+        object {
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            margin-top: 10px;
+        }
+
+        a {
+            color: #3498db;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        a:hover {
+            color: #1abc9c;
+            text-decoration: underline;
+        }
+
+        .button-container {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 40px;
+        }
+
+        button {
+            background-color: #1abc9c;
+            color: white;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 30px;
+            cursor: pointer;
+            font-size: 14px;
+            width: 48%;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+
+        button a {
+            color: white;
+            text-decoration: none;
+        }
+
+        button:hover {
+            background-color: #16a085;
+            transform: translateY(-3px);
+        }
+
+        button:active {
+            background-color: #1abc9c;
+            transform: translateY(2px);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            body {
+                flex-direction: column;
+            }
+
+            .sidebar {
+                width: 100%;
+                margin-right: 0;
+            }
+
+            .container {
+                width: 100%;
+                margin-top: 20px;
+            }
+
+            button {
+                width: 100%;
+                margin-top: 15px;
+            }
+        }
 
     </style>
 </head>
 <body>
-<table border="1px">
-    {% csrf_token %}
-    {% for data in document %}
-    <tr>
-        <th><label>SSLC Certificate</label></th>
-        <td>
-            {% if data.Sslc_certificate %}
-                <object data="{{ data.Sslc_certificate.url }}" type="application/pdf" width="300" height="400"></object>
-                <a href="{{ data.Sslc_certificate.url }}" target="_blank">View Certificate</a>
-                {{ data.Sslc_certificate }}
-            {% else %}
-                No certificate uploaded
-            {% endif %}
-        </td>
-    </tr>
-    <tr>
-        <th>Plus Two Certificate</th>
-        <td>
-            {% if data.Plustwo_certificate %}
-                <object data="{{ data.Plustwo_certificate.url }}" type="application/pdf" width="300" height="400"></object>
-                <a href="{{ data.Plustwo_certificate.url }}" target="_blank">View Certificate</a>
-                {{ data.Plustwo_certificate }}
-            {% else %}
-                No certificate uploaded
-            {% endif %}
-        </td>
-    </tr>
-    <tr>
-        <th>ID Card</th>
-        <td>
-            {% if data.ID_card %}
-                <object data="{{ data.ID_card.url }}" type="application/pdf" width="300" height="400"></object>
-                <a href="{{ data.ID_card.url }}" target="_blank">View Certificate</a>
-                {{ data.ID_card }}
-            {% else %}
-                No certificate uploaded
-            {% endif %}
-        </td>
-    </tr>
-    <tr>
-        <th>TC</th>
-        <td>
-            {% if data.TC %}
-                <object data="{{ data.TC.url }}" type="application/pdf" width="300" height="400"></object>
-                <a href="{{ data.TC.url }}" target="_blank">View Certificate</a>
-                {{ data.TC }}
-            {% else %}
-                No certificate uploaded
-            {% endif %}
-        </td>
-    </tr>
-    <tr>
-        <th>CC</th>
-        <td>
-            {% if data.CC %}
-                <object data="{{ data.CC.url }}" type="application/pdf" width="300" height="400"></object>
-                <a href="{{ data.CC.url }}" target="_blank">View Certificate</a>
-                {{ data.CC }}
-            {% else %}
-                No certificate uploaded
-            {% endif %}
-        </td>
-    </tr>
-    <tr>
-        <td colspan="2">
-            <button><a href="{% url 'document_edit' data.id %}">Edit</a></button>
-            <button><a href="{% url 'document_delte' data.id %}">Delete</a></button>
-        </td>
-    </tr>
-    {% endfor %}
-</table>
+ {% for data in document %}
+    <div class="sidebar">
+        <h2>Dashboard</h2>
+        <a href="{% url 'college:document_view' %}">View Documents</a>
+        <a href="{% url 'college:document_edit' data.id %}">Edit Documents</a>
+        <a href="{% url 'college:document_delte' data.id %}">Delete Documents</a>
+    </div>
+
+    <div class="container">
+        <h1>Document View</h1>
+
+        <table>
+            {% csrf_token %}
+
+            <tr>
+                <th>SSLC Certificate</th>
+                <td>
+                    {% if data.Sslc_certificate %}
+                        <object data="{{ data.Sslc_certificate.url }}" type="application/pdf" width="300" height="400"></object>
+                        <a href="{{ data.Sslc_certificate.url }}" target="_blank">View Certificate</a>
+                    {% else %}
+                        No certificate uploaded
+                    {% endif %}
+                </td>
+            </tr>
+            <tr>
+                <th>Plus Two Certificate</th>
+                <td>
+                    {% if data.Plustwo_certificate %}
+                        <object data="{{ data.Plustwo_certificate.url }}" type="application/pdf" width="300" height="400"></object>
+                        <a href="{{ data.Plustwo_certificate.url }}" target="_blank">View Certificate</a>
+                    {% else %}
+                        No certificate uploaded
+                    {% endif %}
+                </td>
+            </tr>
+            <tr>
+                <th>ID Card</th>
+                <td>
+                    {% if data.ID_card %}
+                        <object data="{{ data.ID_card.url }}" type="application/pdf" width="300" height="400"></object>
+                        <a href="{{ data.ID_card.url }}" target="_blank">View Certificate</a>
+                    {% else %}
+                        No certificate uploaded
+                    {% endif %}
+                </td>
+            </tr>
+            <tr>
+                <th>TC</th>
+                <td>
+                    {% if data.TC %}
+                        <object data="{{ data.TC.url }}" type="application/pdf" width="300" height="400"></object>
+                        <a href="{{ data.TC.url }}" target="_blank">View Certificate</a>
+                    {% else %}
+                        No certificate uploaded
+                    {% endif %}
+                </td>
+            </tr>
+            <tr>
+                <th>CC</th>
+                <td>
+                    {% if data.CC %}
+                        <object data="{{ data.CC.url }}" type="application/pdf" width="300" height="400"></object>
+                        <a href="{{ data.CC.url }}" target="_blank">View Certificate</a>
+                    {% else %}
+                        No certificate uploaded
+                    {% endif %}
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <div class="button-container">
+                        <button><a href="{% url 'college:document_edit' data.id %}">Edit</a></button>
+                        <button><a href="{% url 'college:document_delte' data.id %}">Delete</a></button>
+                    </div>
+                </td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+
 </body>
 </html>

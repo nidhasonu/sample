@@ -38,3 +38,8 @@ class vacancy_form(forms.ModelForm):
         model =vacancy
         fields = '__all__'
 
+class about_form(forms.ModelForm):
+    class Meta:
+        model = about
+        fields = '__all__'
+        

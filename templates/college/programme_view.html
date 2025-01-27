@@ -44,29 +44,31 @@
         }
 
         th {
-            background-image: url(st);
-            color: black;
-            font-weight: bold;
-        }
+    background-color: #f8f8f8;
+    color: black;
+    font-weight: bold;
+}
 
-        button {
-            background-color: #007bff;
-            color: white;
-            padding: 10px 15px;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            font-size: 14px;
-        }
+  .btn {
+    display: inline-block;
+    background-color: #007bff;
+    color: white;
+    padding: 10px 15px;
+    text-align: center;
+    text-decoration: none;
+    border-radius: 4px;
+    font-size: 14px;
+}
 
+.btn:hover {
+    background-color: #0056b3;
+}
         button a {
             color: white;
             text-decoration: none;
         }
 
-        button:hover {
-            background-color: #0056b3;
-        }
+
 
         .no-image {
             color: #888;
@@ -99,8 +101,8 @@
                 <td>{{ programme.End_date }}</td>
             </tr>
             <tr>
-                <td><button><a href="{% url 'edit_progarme' programme.id %}">Edit</a></button></td>
-                <td><button><a href="{% url 'delt_progrm' programme.id %}">Delete</a></button></td>
+                <td><button><a href="{% url 'college:edit_progarme' programme.id %}">Edit</a></button></td>
+                <td><button><a href="{% url 'college:delt_progrm' programme.id %}">Delete</a></button></td>
             </tr>
         </table>
         {% endfor %}

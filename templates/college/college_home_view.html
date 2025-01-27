@@ -111,16 +111,16 @@ button:hover {
         {% for details in data %}
         <div class="card-container">
             <div class="card">
-                {% if details.home_image %}
-                <img src="{{ details.home_image.url }}" class="card-img-top" alt="College Image">
+                {% if details.college_image %}
+                <img src="{{ details.college_image.url }}" class="card-img-top" alt="College Image">
                 {% else %}
                 <div class="no-image">
                     <p>No image available</p>
                 </div>
                 {% endif %}
                 <div class="card-body">
-                    <h5 class="card-title">{{ details.titel }}</h5>
-                    <p class="card-text">{{ details.Location|default:"Location not specified" }}</p>
+                    <h5 class="card-title">{{ details.college_name }}</h5>
+                    <p class="card-text">{{ details.City|default:"City not specified" }}</p>
                 </div>
             </div>
             <div class="card-actions">

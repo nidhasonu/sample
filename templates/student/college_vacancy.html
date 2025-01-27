@@ -67,10 +67,10 @@
             transition: transform 0.3s ease, box-shadow 0.3s;
         }
 
-        /* .image:hover img {
+
             transform: scale(1.05);
           box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
-        } */
+        }
 
         .navbar-toggler {
             border: none;
@@ -105,19 +105,13 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item">
-                        <a class="nav-link" href="{% url 'vacancy_view' %}">Colleges</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{% url 'addmission_view' %}">Admission Details</a>
+                        <a class="nav-link" href="{% url 'student:vacancy_view' %}">Colleges</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#">Request</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href='#'>Complaints</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Reviews</a>
+                        <a class="nav-link" href="#">Complaints</a>
                     </li>
                 </ul>
             </div>

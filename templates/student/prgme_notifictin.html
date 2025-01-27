@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exam Notifications</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #e6f7ff, #d9ecff);
+            color: #333;
+            line-height: 1.6;
+        }
+
+        h2 {
+            text-align: center;
+            font-size: 36px;
+            font-weight: bold;
+            color: #003366;
+            margin-top: 40px;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+        }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+            margin: 20px auto;
+            max-width: 900px;
+        }
+
+        li {
+            background: #ffffff;
+            padding: 20px;
+            margin-bottom: 15px;
+            border-radius: 10px;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        li p {
+            margin: 10px 0;
+            font-size: 18px;
+            color: #444;
+        }
+
+        li p strong {
+            color: #0066cc;
+        }
+
+        .no-notifications {
+            text-align: center;
+            font-size: 20px;
+            color: #888;
+            margin-top: 30px;
+        }
+
+        @media (max-width: 768px) {
+            h2 {
+                font-size: 28px;
+            }
+
+            li p {
+                font-size: 16px;
+            }
+
+            li {
+                padding: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+  <h2>Programme Notifications</h2>
+{% if notifications %}
+    <ul>
+        {% for programmes in progrmme %}
+            <li>
+                <p><strong>TITEL:</strong> {{ programmes.Titel }}</p>
+                <p><strong>VENUE :</strong> {{ programmes.Venue }}</p>
+                <p><strong>START Date:</strong> {{ programmes.Start_date }}</p>
+                <p><strong>END Date:</strong> {{ programmes.End_date }}</p>
+            </li>
+        {% endfor %}
+    </ul>
+{% else %}
+    <p class="no-notifications">No notifications available for this college.</p>
+{% endif %}
+
+</body>
+</html>

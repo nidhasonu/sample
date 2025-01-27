@@ -1,11 +1,11 @@
 from django.urls import path
 from.views import*
 
-
+app_name = 'college'
 
 urlpatterns=[
     path('details/',college_add.as_view(),name="details"),
-    # path('college_notification/', CollegeNotification.as_view(), name='college_notification'),
+    path('college_notification/', CollegeNotification.as_view(), name='college_notification'),
     path('notification_view/',notification_views.as_view(),name="notification_view"),
     path('EDIT/<int:id>',notification_edit.as_view(),name="EDIT"),
     path('Deleting/<int:id>',notification_delete.as_view(),name="Deleting"),
@@ -26,7 +26,7 @@ urlpatterns=[
     path('edit_progarme/<int:id>',programme_edit.as_view(),name="edit_progarme"),
     path('delt_progrm/<int:id>',programm_delt.as_view(),name="delt_progrm"),
     path('national_college/',national_college.as_view(),name="national_college"),
-    path('abouts/',about.as_view(),name="abouts"),
+    path('abouts/',about_add.as_view(),name="abouts"),
     path('view_student/',view_std.as_view(),name="view_student"),
     path('Home_view/',home.as_view(),name="Home_view"),
     path('home_add/',add.as_view(),name="home_add"),
@@ -34,6 +34,8 @@ urlpatterns=[
     path('home_delt/<int:id>',home_delt.as_view(),name="home_delt"),
     path('collegehome/',college_home.as_view(),name="collegehome"),
     path('vacancy_course/',view_coure.as_view(),name="vacancy_course"),
-    path('add_vacancy/',vacancy.as_view(),name="add_vacancy")
+    path('add_vacancy/',add_vacancy.as_view(),name="add_vacancy"),
+    path('edit_vacancyes/<int:id>',vacancy_edit.as_view(),name="edit_vacancyes"),
+    path('delt_vacany/<int:id>',VacancyDeleteView.as_view(),name="delt_vacany"),
 
 ]

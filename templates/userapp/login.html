@@ -4,101 +4,378 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-<style>
-    body{
-   background-image: url("{% static 'images/image1.jpg' %}");
-   background-size: cover;
-   background-repeat: no-repeat;
-
-  }
-  .login-content{
-       height: 350px;
-       width: 300px;
-       text-align: center;
-       padding:10vh;
-       background-color: rgb(147, 236, 236,0.3);
-       margin: auto;
-       margin-top:90px;
-       padding-top: 90px;
-   }
-   .login-content input{
-      width:300px;
-      height:45px;
-      margin:10px;
-      font-size: 15px;
-   }
-   .btn{
-      width: 100px;
-      height: 70px;
-      margin-bottom: 40px;
-      border-radius: 4px;
-   }
-   #reg{
-      margin-top:30px;
-      color: rgb(9, 14, 14);
-      font-size: 30px;
-   }
-
-   .options {
-            display: none;
-            position: absolute;
-            background-color: #f9f9f9;
-            box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
-            padding: 10px 0;
-            z-index: 1;
-            list-style: none;
+    <title>Login</title>
+    <style>
+        /* Global Styles */
+        body {
+            font-family: 'Arial', sans-serif;
+            background-image: url("{% static 'images/university_bg.jpg' %}");
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #333;
         }
 
-        #reg:hover .options {
+        /* Login Card */
+        .login-wrapper {
+            width: 400px;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 12px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+            padding: 2rem;
+            text-align: center;
+            animation: fadeIn 0.6s ease;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        h1 {
+            font-size: 28px;
+            font-weight: bold;
+            color: #222;
+            margin-bottom: 1rem;
+        }
+
+        .description {
+            font-size: 14px;
+            margin-bottom: 2rem;
+            color: #555;
+        }
+
+        input[type="text"],
+        input[type="password"] {
+            width: 100%;
+            padding: 0.8rem;
+            margin: 0.8rem 0;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            font-size: 1rem;
+            box-sizing: border-box;
+            transition: 0.3s;
+        }
+
+        input[type="text"]:focus,
+        input[type="password"]:focus {
+            border-color: #007bff;
+            outline: none;
+            box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+        }
+
+        .btn {
+            width: 100%;
+            padding: 0.8rem;
+            background: linear-gradient(90deg, #007bff, #0056b3);
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.3s;
+            text-transform: uppercase;
+        }
+
+        .btn:hover {
+            background: linear-gradient(90deg, #0056b3, #007bff);
+            box-shadow: 0 8px 20px rgba(0, 123, 255, 0.4);
+        }
+
+        .forgot-link,
+        .signup-link {
+            margin-top: 1rem;
+            font-size: 0.9rem;
             display: block;
         }
 
-        .options li {
-            padding: 8px ;
-        }
-
-        .options li:hover {
-            background-color: #222839;
-        }
-
-        .options a {
+        .forgot-link a,
+        .signup-link a {
+            color: #007bff;
             text-decoration: none;
-            color: black;
+            font-weight: bold;
         }
 
-        .options a:hover {
+        .forgot-link a:hover,
+        .signup-link a:hover {
+            text-decoration: underline;
+        }
+
+        /* Optional Role Tabs */
+        .role-tabs {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 1rem;
+        }
+
+        .role-tab {
+            padding: 0.5rem 1.5rem;
+            background: #f1f1f1;
+            border-radius: 5px;
+            margin: 0 0.5rem;
+            cursor: pointer;
+            font-size: 0.9rem;
+            color: #555;
+            border: 1px solid transparent;
+            transition: 0.3s;
+        }
+
+        .role-tab.active {
+            background: #007bff;
             color: white;
+            border-color: #0056b3;
         }
 
+        .role-tab:hover {
+            background: #e6e6e6;
+        }
 
-       ul li:hover{
-        background-color: rgb(12, 190, 80);
-        border-radius: 5px;
-        height: 60px;
-       }
+        @media screen and (max-width: 480px) {
+            .login-wrapper {
+                width: 90%;
+                padding: 1.5rem;
+            }
+
+            h1 {
+                font-size: 22px;
+            }
+        }
+            /* Dropdown Styles */
+    .dropdown-wrapper {
+        position: relative;
+        display: inline-block;
+    }
+
+    .dropdown-menu {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        background: #fff;
+        border: 1px solid #ddd;
+        border-radius: 6px;
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+        z-index: 1000;
+        width: 100%;
+    }
+
+    .dropdown-item {
+        padding: 0.8rem;
+        text-align: left;
+        width: 100%;
+        background: none;
+        border: none;
+        font-size: 1rem;
+        color: #333;
+        cursor: pointer;
+        transition: background 0.3s;
+    }
+
+    .dropdown-item:hover {
+        background: #f1f1f1;
+    }
 
 
+    .signup-link {
+        position: relative;
+        margin-top: 1rem;
+    }
 
-</style>
+    .dropdown-menu {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        background: #fff;
+        border: 1px solid #ddd;
+        border-radius: 6px;
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+        z-index: 1000;
+        width: 100%;
+    }
+
+    .dropdown-item {
+        padding: 0.8rem;
+        text-align: left;
+        width: 100%;
+        background: none;
+        border: none;
+        font-size: 1rem;
+        color: #333;
+        cursor: pointer;
+        transition: background 0.3s;
+    }
+
+    .dropdown-item:hover {
+        background: #f1f1f1;
+    }
+
+
+    .registration-form {
+        display: none;
+        margin-top: 2rem;
+        padding: 1rem;
+        background: rgba(255, 255, 255, 0.9);
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+
+    .registration-form h2 {
+        font-size: 1.5rem;
+        margin-bottom: 1rem;
+        color: #333;
+    }
+
+    .registration-form input {
+        width: 100%;
+        padding: 0.8rem;
+        margin: 0.8rem 0;
+        border: 1px solid #ddd;
+        border-radius: 6px;
+        font-size: 1rem;
+        box-sizing: border-box;
+    }
+
+    .registration-form .btn {
+        width: 100%;
+        padding: 0.8rem;
+        background: linear-gradient(90deg, #007bff, #0056b3);
+        color: white;
+        border: none;
+        border-radius: 6px;
+        font-size: 1rem;
+        font-weight: bold;
+        cursor: pointer;
+        transition: 0.3s;
+        text-transform: uppercase;
+    }
+
+    .registration-form .btn:hover {
+        background: linear-gradient(90deg, #0056b3, #007bff);
+        box-shadow: 0 8px 20px rgba(0, 123, 255, 0.4);
+    }
+  .dropdown-menu {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+    width: 300px;
+}
+
+.dropdown-item {
+    display: block;
+    padding: 0.8rem;
+    text-align: center;
+    background: #f8f9fa;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    margin: 0.5rem 0;
+    color: #333;
+    text-decoration: none;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+   
+}
+
+.dropdown-item:hover {
+    background: #007bff;
+    color: white;
+    box-shadow: 0 4px 12px rgba(0, 123, 255, 0.4);
+}
+
+    </style>
 </head>
 <body>
 
-   <div class="login-content">
-        <form method="post">
-            {% csrf_token %}
+  <div class="login-wrapper">
+    <h1>Welcome Back</h1>
+    <p class="description">Login to access your account</p>
 
-            <input type="text" name="username" placeholder="username" required><br>
-            <input type="password" name="password"  placeholder="password" required><br>
-            <input class="btn"  type="submit" value="Login"><br>
-            <p id="reg">already a user<a href="#">Register</a></p>
-            <ul class="options">
-               <li><a href="{% url 'students' %}">STUDENT</a></li>
-               <li><a href="{% url 'details' %}">COLLEGE</a></li>
-               <li><a href="{% url 'view_programme' %}">ADMIN</a></li>
-               
-           </ul>
+
+    <form id="login-form" method="post" action="">
+        {% csrf_token %}
+        <input type="text" name="username" placeholder="Username or Email" required>
+        <input type="password" name="password" placeholder="Password" required>
+        <button type="submit" class="btn">Login</button>
     </form>
+
+    <div class="forgot-link">
+        <a href="">Forgot Password?</a>
     </div>
+
+
+   <div class="signup-link">
+    <a href="#" onclick="toggleSignupDropdown(event)">Don't have an account? Sign up</a>
+    <div class="dropdown-menu" id="signup-dropdown-menu">
+        <a href="{% url 'student:students' %}" class="dropdown-item">Register as Student</a>
+        <a href="{% url 'college:details' %}" class="dropdown-item">Register as College</a>
+    </div>
+</div>
+
+
+
+
+<script>
+    // Toggle the dropdown menu for the sign-up link
+    function toggleSignupDropdown(event) {
+        event.preventDefault(); // Prevent the default link action
+        const dropdownMenu = document.getElementById('signup-dropdown-menu');
+        dropdownMenu.style.display = dropdownMenu.style.display === 'block' ? 'none' : 'block';
+    }
+
+    // Show the selected registration form
+    function showRegistrationForm(type) {
+        const studentForm = document.getElementById('student-registration-form');
+        const collegeForm = document.getElementById('college-registration-form');
+
+        // Hide both forms initially
+        studentForm.style.display = 'none';
+        collegeForm.style.display = 'none';
+
+        // Show the selected form
+        if (type === 'student') {
+            studentForm.style.display = 'block';
+        } else if (type === 'college') {
+            collegeForm.style.display = 'block';
+        }
+
+        // Hide the dropdown menu
+        document.getElementById('signup-dropdown-menu').style.display = 'none';
+    }
+
+    // Hide dropdown when clicking outside
+    document.addEventListener('click', (event) => {
+        const dropdownMenu = document.getElementById('signup-dropdown-menu');
+        if (!event.target.closest('.signup-link')) {
+            dropdownMenu.style.display = 'none';
+        }
+    });
+</script>
+
+
+
+
+
+
 </body>
 </html>

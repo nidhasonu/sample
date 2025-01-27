@@ -2,15 +2,84 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Send Seat or Transfer Request</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+        h2 {
+            text-align: center;
+            color: #333;
+            margin-top: 20px;
+        }
+        form {
+            width: 60%;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+        }
+        label {
+            display: block;
+            margin: 10px 0 5px;
+            font-weight: bold;
+        }
+        input, select, textarea, button {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
 </head>
 <body>
 <h2>Send Seat or Transfer Request</h2>
 <form method="post">
     {% csrf_token %}
-    {{ form.as_p }}
+
+    <label for="student_name">Student Name</label>
+    <input type="text" id="student_name" name="student_name" placeholder="Enter student name" required>
+
+    <label for="program">Program</label>
+   <input type="text" id="id_program" name="program" placeholder="programme">
+
+    <label for="request_type">Request Type</label>
+    <select id="request_type" name="request_type" required>
+        <option value="">Select request type</option>
+        <option value="seat">Seat Request</option>
+        <option value="transfer">Transfer Request</option>
+    </select>
+
+    <label for="reason">Reason for Request</label>
+    <textarea id="reason" name="reason" rows="4" placeholder="Enter your reason here" required></textarea>
+
     <button type="submit">Submit Request</button>
 </form>
 
+<h3>Available Vacancies</h3>
+<ul>
+    {% for vacancy in vacancy %}
+        <li>{{ vacancy.name }}</li>
+    {% empty %}
+        <li>No vacancies available.</li>
+    {% endfor %}
+</ul>
 </body>
 </html>

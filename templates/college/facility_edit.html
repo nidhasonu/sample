@@ -2,38 +2,185 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Facility</title>
+    <style>
+        /* General styles */
+        body {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, #a1c4fd, #c2e9fb);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        .form-container {
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-radius: 16px;
+            padding: 30px;
+            width: 90%;
+            max-width: 550px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+            animation: fadeIn 0.5s ease-in-out;
+            color: #333;
+        }
+
+        h1 {
+            font-size: 24px;
+            text-align: center;
+            margin-bottom: 20px;
+            color: #0077b6;
+        }
+
+        table {
+            width: 100%;
+            border-spacing: 0;
+        }
+
+        th {
+            text-align: left;
+            font-size: 16px;
+            font-weight: bold;
+            padding: 10px 0;
+            color: #555;
+        }
+
+        td {
+            padding: 10px 0;
+        }
+
+        input[type="text"],
+        input[type="file"] {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            font-size: 14px;
+            background: rgba(255, 255, 255, 0.5);
+            backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(5px);
+            color: #333;
+            transition: border 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        input:focus {
+            outline: none;
+            border: 2px solid #0077b6;
+            box-shadow: 0 0 8px rgba(0, 119, 182, 0.3);
+        }
+
+        img {
+            max-width: 100%;
+            max-height: 200px;
+            border-radius: 8px;
+            margin-bottom: 10px;
+            object-fit: cover;
+            display: block;
+            border: 2px solid #0077b6;
+        }
+
+        .no-image {
+            color: #777;
+            font-style: italic;
+            margin-bottom: 10px;
+        }
+
+        button[type="submit"] {
+            width: 100%;
+            padding: 12px;
+            background: linear-gradient(135deg, #0077b6, #0096c7);
+            border: none;
+            border-radius: 8px;
+            color: #ffffff;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: transform 0.2s ease, background 0.3s ease;
+            text-transform: uppercase;
+        }
+
+        button[type="submit"]:hover {
+            background: linear-gradient(135deg, #0096c7, #00b4d8);
+            transform: scale(1.05);
+        }
+
+        button[type="submit"]:active {
+            transform: scale(1);
+            background: #005f73;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .form-container {
+                padding: 20px;
+            }
+
+            th,
+            td {
+                display: block;
+                width: 100%;
+            }
+
+            th {
+                margin-bottom: 8px;
+            }
+
+            td {
+                margin-bottom: 15px;
+            }
+        }
+    </style>
 </head>
 <body>
-<table border="1px solid:black">
-    <form class="edit" method="POST">
+
+<div class="form-container">
+    <h1>Edit Facility</h1>
+    <form method="POST" enctype="multipart/form-data">
         {% csrf_token %}
-
-        <tr>
-            <th><label>Name</label></th>
-        <td><input type="text" id="id_Name" name="Name" value="{{facility.Name}}"></td>
-        </tr>
-        <tr>
-            <th><label>Description</label></th>
-            <td><input type="text" id="id_Description" name="Description" value="{{facility.Description}}"></td>
-        </tr>
-        <tr>
-         <th><label>Image</label></th>
-    <td>
-    {% if facility.image %}
-    <img width="270px" height="190px" src="{{ facility.image.url }}" alt="">
-    {% else %}
-        <p>No image available </p>
-    {% endif %}
-        <input type="file" name="image">
-    </td>
-    </tr>
-
-        <tr>
-            <td><button type="submit" value="save">Save<br><br></button></td>
-        </tr>
+        <table>
+            <tr>
+                <th><label for="id_Name">Name</label></th>
+                <td><input type="text" id="id_Name" name="Name" value="{{ facility.Name }}"></td>
+            </tr>
+            <tr>
+                <th><label for="id_Description">Description</label></th>
+                <td><input type="text" id="id_Description" name="Description" value="{{ facility.Description }}"></td>
+            </tr>
+            <tr>
+                <th><label for="id_Image">Image</label></th>
+                <td>
+                    {% if facility.image %}
+                        <img src="{{ facility.image.url }}" alt="Facility Image">
+                    {% else %}
+                        <p class="no-image">No image available</p>
+                    {% endif %}
+                    <input type="file" id="id_Image" name="image">
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <button type="submit">Save</button>
+                </td>
+            </tr>
+        </table>
     </form>
-</table>
+</div>
 
 </body>
 </html>

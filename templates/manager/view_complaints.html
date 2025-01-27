@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Elegant Complaint</title>
+  <style>
+    body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 20px;
+    background-color: #f4f4f4;
+    color: #333;
+}
+
+h1, h2 {
+    color: #2c3e50;
+}
+
+.complaint-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+.complaint-table th, .complaint-table td {
+    padding: 10px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+.complaint-table th {
+    background-color: #3498db;
+    color: white;
+}
+
+.complaint-table tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+.btn {
+    display: inline-block;
+    padding: 8px 12px;
+    font-size: 14px;
+    text-decoration: none;
+    border-radius: 4px;
+}
+
+.btn-primary {
+    background-color: #2980b9;
+    color: white;
+    border: none;
+}
+
+.btn-primary:hover {
+    background-color: #1f618d;
+}
+
+  </style>
+
+</head>
+<body>
+
+  <h2>Un-replied Complaints</h2>
+  {% if complaints %}
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Sender</th>
+          <th>Complaint</th>
+
+        </tr>
+      </thead>
+      <tbody>
+        {% for complaint in complaints %}
+          <tr>
+            <td>{{ complaint.sender.username }}</td>
+            <td>{{ complaint.complaint_text }}</td>
+          </tr>
+            <tr>
+            <td>
+              <a href="{% url 'manager:riply' complaint.id %}" class="btn btn-primary">Reply</a>
+            </td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  {% else %}
+    <p>No complaints to view.</p>
+  {% endif %}
+
+</body>
+</html>

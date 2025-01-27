@@ -1,113 +1,143 @@
-{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
-  <style>
-    body {
-    font-family: Arial, sans-serif;
-    background-color: #f4f4f9;
-    margin: 0;
-    padding: 20px;
-}
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Minimalist Table</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f7f7f7;
+            margin: 0;
+            padding: 20px;
+        }
 
-.container {
-    max-width: 800px;
-    margin: 0 auto;
-    background: #fff;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-}
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 30px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
 
-h1 {
-    text-align: center;
-    color: #333;
-    margin-bottom: 20px;
-}
+        h1 {
+            text-align: center;
+            font-size: 2rem;
+            color: #333;
+            margin-bottom: 20px;
+        }
 
-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-bottom: 20px;
-}
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
 
-table th, table td {
-    border: 1px solid #ddd;
-    padding: 10px;
-    text-align: left;
-}
+        th, td {
+            padding: 15px 25px;
+            text-align: left;
+            font-size: 1rem;
+            color: #333;
+            border-bottom: 1px solid #ddd;
+        }
 
-table th {
-    background-color: #f0f0f0;
-    color: #333;
-}
+        th {
+            background-color: #2196F3;
+            color: white;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
 
-table tr:nth-child(even) {
-    background-color: #f9f9f9;
-}
+        td {
+            font-weight: 400;
+        }
 
-table tr:hover {
-    background-color: #f1f1f1;
-}
+        tr:nth-child(even) {
+            background-color: #f4f4f4;
+        }
 
-  </style>
+        tr:hover {
+            background-color: #e0e0e0;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            th, td {
+                font-size: 0.9rem;
+                padding: 12px 18px;
+            }
+
+            h1 {
+                font-size: 1.8rem;
+            }
+        }
+    </style>
 </head>
 <body>
-{% for view in data %}
+    <div class="container">
+        <h1>Details</h1>
 
-<table border="1px">
-  <tr>
-    <th>Name</th>
-    <td>{{ view.Name }}</td>
-  </tr>
-  <tr>
-    <th>Age</th>
-    <td>{{ view.Age }}</td>
-  </tr>
-  <tr>
-    <th>Date_of_birth</th>
-    <td>{{ view.Date_of_birth }}</td>
-  </tr>
-  <tr>
-    <th>Email</th>
-    <td>{{ view.Email }}</td>
-  </tr>
-  <tr>
-    <th>Father_name</th>
-    <td>{{ view.Father_name }}</td>
-  </tr>
-  <tr>
-    <th>Mother_name</th>
-    <td>{{ view.Mother_name }}</td>
-  </tr>
-  <tr>
-    <th>Gender</th>
-    <td>{{ view.Gender }}</td>
-  </tr>
-  <tr>
-    <th>City</th>
-    <td>{{ view.City }}</td>
-  </tr>
-  <tr>
-    <th>Ph_num</th>
-    <td>{{ view.Ph_num }}</td>
-  </tr>
-  <tr>
-    <th>Addar_num</th>
-    <td>{{ view.Addar_num }}</td>
-  </tr>
-  <tr>
-    <th>Qualification</th>
-    <td>{{ view.Qualification }}</td>
-  </tr>
-  <tr>
-    <th>university</th>
-    <td>{{ view.university }}</td>
-  </tr>
-</table>
-{% endfor %}
+        <table>
+            <thead>
+                <tr>
+                    <th>Attribute</th>
+                    <th>Details</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for view in data %}
+                <tr>
+                    <td>Name</td>
+                    <td>{{ view.Name }}</td>
+                </tr>
+                <tr>
+                    <td>Age</td>
+                    <td>{{ view.Age }}</td>
+                </tr>
+                <tr>
+                    <td>Date of Birth</td>
+                    <td>{{ view.Date_of_birth }}</td>
+                </tr>
+                <tr>
+                    <td>Email</td>
+                    <td>{{ view.Email }}</td>
+                </tr>
+                <tr>
+                    <td>Phone Number</td>
+                    <td>{{ view.Ph_num }}</td>
+                </tr>
+                <tr>
+                    <td>Gender</td>
+                    <td>{{ view.Gender }}</td>
+                </tr>
+                <tr>
+                    <td>City</td>
+                    <td>{{ view.City }}</td>
+                </tr>
+                <tr>
+                    <td>Father's Name</td>
+                    <td>{{ view.Father_name }}</td>
+                </tr>
+                <tr>
+                    <td>Mother's Name</td>
+                    <td>{{ view.Mother_name }}</td>
+                </tr>
+                <tr>
+                    <td>Aadhaar Number</td>
+                    <td>{{ view.Addar_num }}</td>
+                </tr>
+                <tr>
+                    <td>Qualification</td>
+                    <td>{{ view.Qualification }}</td>
+                </tr>
+                <tr>
+                    <td>University</td>
+                    <td>{{ view.university }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
 </body>
 </html>
-

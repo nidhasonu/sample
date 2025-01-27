@@ -1,4 +1,3 @@
-{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,105 +5,145 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Facility List</title>
     <style>
+        /* General Styles */
         body {
-            font-family: Arial, sans-serif;
+            font-family: 'Helvetica Neue', Arial, sans-serif;
             margin: 0;
-            padding: 0;
-            background-color: #f4f4f9;
+            padding: 20px;
+            background-color: #f9fafb;
             display: flex;
             justify-content: center;
-            align-items: center;
-            flex-direction: column;
+            align-items: flex-start;
+            flex-wrap: wrap;
         }
 
-        .card {
-            width: 90%;
-            max-width: 600px;
-            background-color: #9e5baf;
-            margin: 20px auto;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        }
-
-        table {
-            width: 100%;
-            border-collapse: collapse;
+        h1 {
+            font-size: 26px;
+            color: #333;
             margin-bottom: 20px;
+            width: 100%;
+            text-align: center;
         }
 
-        th, td {
-            text-align: left;
-            padding: 10px;
-           
+        .facility-card {
+            width: 320px;
+            background-color: #ffffff;
+            border-radius: 12px;
+            margin: 15px;
+            padding: 20px;
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
         }
 
-        th {
-            background-color: rgb(165, 103, 223);
-            color: white;
-            font-weight: bold;
+        .facility-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
         }
 
-        td img {
-            display: block;
-            max-width: 100%;
-            height: auto;
-            border-radius: 4px;
+        .facility-card img {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+            border-radius: 8px;
+            margin-bottom: 15px;
         }
 
-        button {
-            background-color: #c737eb;
-            color: white;
-            padding: 10px 15px;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
+        .facility-info {
+            margin-bottom: 15px;
+        }
+
+        .facility-info h3 {
+            font-size: 20px;
+            color: #4a4a4a;
+            margin-bottom: 8px;
+        }
+
+        .facility-info p {
             font-size: 14px;
-        }
-
-        button a {
-            color: white;
-            text-decoration: none;
-        }
-
-        button:hover {
-            background-color: #b300b3;
+            color: #6c757d;
+            margin: 0;
+            line-height: 1.6;
         }
 
         .no-image {
-            color: #888;
+            width: 100%;
+            height: 180px;
+            background-color: #e9ecef;
+            border-radius: 8px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #868e96;
+            font-size: 14px;
             font-style: italic;
         }
 
-        p {
-            margin: 0;
+        .button-group {
+            display: flex;
+            justify-content: space-between;
+            gap: 10px;
+        }
+
+        .button-group a {
+            flex: 1;
+            text-align: center;
+            padding: 10px;
+            border-radius: 6px;
+            font-size: 14px;
+            text-decoration: none;
+            color: white;
+            font-weight: bold;
+            transition: background-color 0.3s, transform 0.2s;
+        }
+
+        .edit-button {
+            background-color: #007bff;
+        }
+
+        .edit-button:hover {
+            background-color: #0056b3;
+            transform: scale(1.05);
+        }
+
+        .delete-button {
+            background-color: #dc3545;
+        }
+
+        .delete-button:hover {
+            background-color: #b30000;
+            transform: scale(1.05);
+        }
+
+        @media (max-width: 768px) {
+            .facility-card {
+                width: 100%;
+            }
         }
     </style>
 </head>
 <body>
-    <div class="card">
-        {% for facility in data %}
-        <table>
-            <tr>
-                <th><label>Name</label></th>
-                <td>{{ facility.Name }}</td>
-            </tr>
-            <tr>
-                <th><label>Description</label></th>
-                <td>{{ facility.Description }}</td>
-            </tr>
-            <tr>
-                {% if facility.image %}
-                <th><label>Image</label></th>
-                <td><img src="{{ facility.image.url }}" alt="Facility Image"></td>
-                {% else %}
-                <td colspan="2" class="no-image">No image available</td>
-                {% endif %}
-            </tr>
-        </table>
-        <button><a href="{% url 'edit_facility' facility.id %}">Edit</a></button>
-        <button><a href="{% url 'facility_delt' facility.id %}">Delete</a></button>
-        {% endfor %}
+    <h1>Facility List</h1>
+    {% for facility in data %}
+    <div class="facility-card">
+        {% if facility.image %}
+        <img src="{{ facility.image.url }}" alt="{{ facility.Name }}">
+        {% else %}
+        <div class="no-image">No image available</div>
+        {% endif %}
+
+        <div class="facility-info">
+            <h3>{{ facility.Name }}</h3>
+            <p>{{ facility.Description }}</p>
+        </div>
+
+        <div class="button-group">
+            <a href="{% url 'college:edit_facility' facility.id %}" class="edit-button">Edit</a>
+            <a href="{% url 'college:facility_delt' facility.id %}" class="delete-button">Delete</a>
+        </div>
     </div>
+    {% endfor %}
 </body>
 </html>

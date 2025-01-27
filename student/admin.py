@@ -4,3 +4,4 @@ from.models import *
 admin.site.register(studentmodel)
 admin.site.register(Feedback)
 admin.site.register(SeatTransferRequest)
+admin.site.register(Complaint)

@@ -7,7 +7,9 @@ from student. models import *
 from college.models import *
 from django.shortcuts import render, get_object_or_404
 from django.contrib import messages
+from django.urls import reverse
 
+app_name = 'manager'
 
 # Create your views here.
 
@@ -51,6 +53,28 @@ class Verify(View):
         messages.success(request,f"{user_data.username} profile {user_data.status} sucessfully")
         return redirect('verify')
 
+class view_mycomplaint(View):
+  def get(self, request, *args, **kwargs):
+    complaints = Complaint.objects.filter(reply__isnull=True).order_by('-created_at')
+    for complaint in complaints:
+        print(complaint.complaint_text)
+    return render(request, 'manager/view_complaints.html', {'complaints': complaints})
+
+
+class ReplyComplaintView(View):
+    def get(self, request, pk, *args, **kwargs):
+        complaint = Complaint.objects.get(pk=pk)
+        return render(request, 'manager/complint_riply.html', {'complaint': complaint})
+
+    def post(self, request, pk, *args, **kwargs):
+        complaint = Complaint.objects.get(pk=pk)
+        reply = request.POST.get('reply')
+        if reply:
+            complaint.reply = reply
+            complaint.save()
+            return HttpResponse(
+                '<script>alert("riply submitted successfully!"); window.location.href="/homepage/";</script>')
+        return render(request, 'manager/complint_riply.html', {'complaint': complaint})
 
 
 

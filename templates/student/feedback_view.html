@@ -18,8 +18,8 @@
     </tr>
 </table>
 
-<button> <a href="{% url 'feedback_edit' feedback.id %}">Edit</a></button>
-<button> <a href="{% url 'feedback_delt' feedback.id %}">Delete</a></button>
+<button> <a href="{% url 'student:feedback_edit' feedback.id %}">Edit</a></button>
+<button> <a href="{% url 'student:feedback_delt' feedback.id %}">Delete</a></button>
 {% endfor %}
 </body>
 </html>
